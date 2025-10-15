@@ -1,0 +1,17 @@
+flutter_native_splash:
+
+  color: "#42a5f5"
+
+  image: assets/splash.png
+
+  branding: assets/dart.png
+
+  branding_bottom_padding: 24
+
+  android_12:
+
+   image: assets/android12splash.png
+
+   color: "#42a5f5"
+
+   branding: assets/dart.png
