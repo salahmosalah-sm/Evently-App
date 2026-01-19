@@ -6,6 +6,8 @@ class ImagesManager
 
   static const String logo="$base/Logo.png";
   static const String brand="$base/Brand.png";
+
+  static const String sportBlack = "$base/Sports_Black.png";
 }
 
 
@@ -28,4 +30,17 @@ class IconsManager
   static const String selectedMap = "$base/Selected_Map.svg";
   static const String selectedFavourite = "$base/Selected_Favourite.svg";
   static const String selectedProfile = "$base/Selected_Profile.svg";
+
+  static const String sun = "$base/Sun.svg";
+
+  static const String all = "$base/all.svg";
+  static const String sport = "$base/sport.svg";
+  static const String birthday = "$base/birthday.svg";
+  static const String meeting = "$base/Meeting.svg";
+  static const String gaming = "$base/Gaming.svg";
+  static const String eating = "$base/Eating.svg";
+  static const String holiday = "$base/Holiday.svg";
+  static const String exhibition = "$base/exhibition.svg";
+  static const String workShop = "$base/Work Shop.svg";
+  static const String bookClub = "$base/book.svg";
 }

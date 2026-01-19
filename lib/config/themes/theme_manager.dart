@@ -21,11 +21,11 @@ class ThemeManager {
           shape: StadiumBorder(
             side: BorderSide(color: ColorsManager.white, width: 4.w),)
       ),
-      bottomAppBarTheme: BottomAppBarTheme(
+      bottomAppBarTheme: const BottomAppBarTheme(
         color: ColorsManager.blue,
         shape: CircularNotchedRectangle(),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.transparent,
           selectedItemColor: ColorsManager.white,
@@ -78,7 +78,18 @@ class ThemeManager {
     ),
     textTheme: TextTheme(
       bodySmall: GoogleFonts.inter(fontSize: 16.sp,fontWeight: FontWeight.w500,color: ColorsManager.black),
-      titleMedium: GoogleFonts.inter(fontWeight: FontWeight.w500,fontSize: 20.sp,color: ColorsManager.blue)
+      titleSmall: GoogleFonts.inter(fontWeight: FontWeight.normal,
+          fontSize: 14.sp,
+          color: ColorsManager.white),
+      titleMedium: GoogleFonts.inter(fontWeight: FontWeight.w500,
+          fontSize: 20.sp,
+          color: ColorsManager.blue),
+      titleLarge: GoogleFonts.inter(fontWeight: FontWeight.bold,
+          fontSize: 24.sp,
+          color: ColorsManager.white),
+    ),
+      iconTheme: IconThemeData(
+        color: ColorsManager.white,
     )
   );
   static final ThemeData dark = ThemeData(
