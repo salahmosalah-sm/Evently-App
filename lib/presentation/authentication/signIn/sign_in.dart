@@ -1,5 +1,5 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
-import 'package:evently_app/core/resources/colors_manager.dart';
+import 'package:evently_app/core/routes_manager/route_manager.dart';
 import 'package:evently_app/core/widgets/custom_button.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';
@@ -37,12 +37,12 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 16.h),
                     CustomTextFormField(
-                      labelText: "Email",
+                      labelText: "Password",
                       prefixIcon: Icons.lock,
                       suffixIcon:
-                          isPasswordSecure == false
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                          isPasswordSecure
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                       isSecure: isPasswordSecure,
                       onClick: _onClickPassword,
 
@@ -55,9 +55,12 @@ class _SignInState extends State<SignIn> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don’t Have Account ?",style: Theme.of(context).textTheme.bodySmall,),
-                        CustomTextButton(title:"Create Account", onPress: (){})
-                      ],
+                        Text("Don’t Have Account ?",style: Theme.of(context).textTheme.bodySmall,),ustomTextButton(
+                          title: "Create Account",
+                          onPress: () {
+                            Navigator.pushNamed(context, RoutesManager.signUp);
+                          },
+                        )],
                     ),
                     SizedBox(height: 24.h),
                     const CustomDivider(title: "Or"),

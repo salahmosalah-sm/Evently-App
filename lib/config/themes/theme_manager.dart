@@ -7,6 +7,15 @@ class ThemeManager {
   static final ThemeData light = ThemeData(
     scaffoldBackgroundColor: ColorsManager.light,
     primaryColor: ColorsManager.blue,
+      appBarTheme: AppBarTheme(
+          color: ColorsManager.light,
+          foregroundColor: ColorsManager.blue,
+          centerTitle: true,
+          titleTextStyle: GoogleFonts.roboto(fontSize: 22.sp,
+              fontWeight: FontWeight.normal,
+              fontStyle: FontStyle.normal,
+              color: ColorsManager.blue)
+      ),
     inputDecorationTheme: InputDecorationTheme(
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16.r),
