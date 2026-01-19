@@ -55,7 +55,11 @@ class _SignInState extends State<SignIn> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don’t Have Account ?",style: Theme.of(context).textTheme.bodySmall,),ustomTextButton(
+                        Text("Don’t Have Account ?", style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodySmall,),
+                        CustomTextButton(
                           title: "Create Account",
                           onPress: () {
                             Navigator.pushNamed(context, RoutesManager.signUp);
