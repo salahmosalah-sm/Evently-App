@@ -1,5 +1,5 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
-import 'package:evently_app/data/data_model.dart';
+import 'package:evently_app/data/category_data_model.dart';
 
 class ConstantManager {
   static List<CategoryDM> categories = [

@@ -6,8 +6,21 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeManager {
   static final ThemeData light = ThemeData(
       useMaterial3: false,
-    scaffoldBackgroundColor: ColorsManager.light,
+
+
+      scaffoldBackgroundColor: ColorsManager.light,
+
     primaryColor: ColorsManager.blue,
+
+
+      cardColor: ColorsManager.light,
+
+
+      cardTheme: CardTheme(
+        color: ColorsManager.light,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+      ),
+
       appBarTheme: AppBarTheme(
           color: ColorsManager.light,
           foregroundColor: ColorsManager.blue,
@@ -17,14 +30,20 @@ class ThemeManager {
               fontStyle: FontStyle.normal,
               color: ColorsManager.blue)
       ),
+
+
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           shape: StadiumBorder(
             side: BorderSide(color: ColorsManager.white, width: 4.w),)
       ),
+
+
       bottomAppBarTheme: const BottomAppBarTheme(
         color: ColorsManager.blue,
         shape: CircularNotchedRectangle(),
       ),
+
+
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.transparent,
@@ -32,7 +51,9 @@ class ThemeManager {
           unselectedItemColor: ColorsManager.white,
           elevation: 0
       ),
-    inputDecorationTheme: InputDecorationTheme(
+
+
+      inputDecorationTheme: InputDecorationTheme(
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16.r),
         borderSide: BorderSide(width: 1.w, color: ColorsManager.grey),
@@ -54,7 +75,9 @@ class ThemeManager {
         borderSide: BorderSide(width: 1.w, color: ColorsManager.grey),
       ),
     ),
-    textButtonTheme: TextButtonThemeData(
+
+
+      textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         textStyle: GoogleFonts.inter(
           fontSize: 16.sp,
@@ -66,7 +89,9 @@ class ThemeManager {
         foregroundColor: ColorsManager.blue,
       ),
     ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
+
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
 
       style: ElevatedButton.styleFrom(
         padding: REdgeInsets.symmetric(vertical: 16),
@@ -76,22 +101,40 @@ class ThemeManager {
         textStyle: GoogleFonts.inter(fontSize: 20.sp,fontWeight: FontWeight.w500,color: ColorsManager.white),
       )
     ),
-    textTheme: TextTheme(
-      bodySmall: GoogleFonts.inter(fontSize: 16.sp,fontWeight: FontWeight.w500,color: ColorsManager.black),
+
+
+      textTheme: TextTheme(
+
+
+        bodySmall: GoogleFonts.inter(fontSize: 16.sp,fontWeight: FontWeight.w500,color: ColorsManager.black),
+
       titleSmall: GoogleFonts.inter(fontWeight: FontWeight.normal,
           fontSize: 14.sp,
           color: ColorsManager.white),
+
       titleMedium: GoogleFonts.inter(fontWeight: FontWeight.w500,
           fontSize: 20.sp,
           color: ColorsManager.blue),
+
       titleLarge: GoogleFonts.inter(fontWeight: FontWeight.bold,
           fontSize: 24.sp,
           color: ColorsManager.white),
+
+        labelSmall: GoogleFonts.inter(fontWeight: FontWeight.bold,
+            fontSize: 14.sp,
+            color: ColorsManager.blue),
+
     ),
+
+
       iconTheme: IconThemeData(
         color: ColorsManager.white,
     )
+
+
   );
+
+
   static final ThemeData dark = ThemeData(
     scaffoldBackgroundColor: ColorsManager.dark,
     primaryColor: ColorsManager.blue,

@@ -1,5 +1,5 @@
 import 'package:evently_app/core/widgets/custom_tab.dart';
-import 'package:evently_app/data/data_model.dart';
+import 'package:evently_app/data/category_data_model.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
