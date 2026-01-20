@@ -8,8 +8,8 @@ class RoutesManager
 {
   static const String signUp = "/sign-Up";
   static const String signIN = "/sign-In";
-  static const String mainLayout = "/Main_Layout";
-  static const String createEvent = "/Create_Event";
+  static const String mainLayout = "/Main-Layout";
+  static const String createEvent = "/Create-Event";
 
   static Route? router (RouteSettings sitting)
   {
@@ -23,6 +23,8 @@ class RoutesManager
         return MaterialPageRoute(builder: (context) => const MainLayout());
       case createEvent:
         return MaterialPageRoute(builder: (context) => const CreateEvent());
+      default:
+        return MaterialPageRoute(builder: (context) => const SignIn());
     }
   }
 }
