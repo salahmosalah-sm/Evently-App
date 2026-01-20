@@ -64,4 +64,60 @@ class ConstantManager {
       iconPath: IconsManager.bookClub,
     ),
   ];
+  static List<CategoryDM> categoriesWithoutAll = [
+    CategoryDM(
+      id: 1,
+      categoryName: "Sport",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.sport,
+    ),
+    CategoryDM(
+      id: 2,
+      categoryName: "Birthday",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.birthday,
+    ),
+    CategoryDM(
+      id: 3,
+      categoryName: "Meeting",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.meeting,
+    ),
+    CategoryDM(
+      id: 4,
+      categoryName: "Gaming",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.gaming,
+    ),
+    CategoryDM(
+      id: 5,
+      categoryName: "Eating",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.eating,
+    ),
+    CategoryDM(
+      id: 6,
+      categoryName: "Holiday",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.holiday,
+    ),
+    CategoryDM(
+      id: 7,
+      categoryName: "Exhibition",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.exhibition,
+    ),
+    CategoryDM(
+      id: 8,
+      categoryName: "WorkShop",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.workShop,
+    ),
+    CategoryDM(
+      id: 9,
+      categoryName: "BookClub",
+      imagePath: ImagesManager.sportBlack,
+      iconPath: IconsManager.bookClub,
+    ),
+  ];
 }

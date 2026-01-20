@@ -1,0 +1,107 @@
+import 'package:evently_app/core/resources/assests_manager.dart';
+import 'package:evently_app/core/resources/colors_manager.dart';
+import 'package:evently_app/core/resources/constant_manager.dart';
+import 'package:evently_app/core/widgets/custom_elevated_button.dart';
+import 'package:evently_app/core/widgets/custom_tab_bar.dart';
+import 'package:evently_app/core/widgets/custom_text_button.dart';
+import 'package:evently_app/core/widgets/custom_text_form_field.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class CreateEvent extends StatelessWidget {
+  const CreateEvent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Create Event")),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: REdgeInsets.all(16),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16.r),
+                    clipBehavior: Clip.hardEdge,
+                    child: Image.asset(ImagesManager.sportBlack),
+                  ),
+                ],
+              ),
+            ),
+            CustomTabBar(
+              categories: ConstantManager.categoriesWithoutAll,
+              selectedTabBG: ColorsManager.blue,
+              unSelectedTabBG: ColorsManager.light,
+              selectedTabLabel: ColorsManager.light,
+              unSelectedTabLabel: ColorsManager.blue,
+            ),
+            Padding(
+              padding: REdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text("Title", style: Theme.of(context).textTheme.bodySmall),
+                  SizedBox(height: 8.h),
+                  CustomTextFormField(
+                    labelText: "Event Title",
+                    prefixIcon: Icons.edit_note,
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    "Description",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  SizedBox(height: 8.h),
+                  CustomTextFormField(
+                    labelText: "Event Description",
+                    maxLines: 5,
+                  ),
+                  SizedBox(height: 16.h),
+                  Row(
+                    children: [
+                      Icon(Icons.calendar_month_outlined),
+                      SizedBox(width: 10.w),
+                      Expanded(
+                        child: Text(
+                          "Event Date",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                      CustomTextButton(
+                        title: "Choose Date",
+                        onPress: () {},
+                        underLine: false,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.access_time_outlined),
+                      SizedBox(width: 10.w),
+                      Expanded(
+                        child: Text(
+                          "Event Time",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                      CustomTextButton(
+                        title: "Choose Time",
+                        onPress: () {},
+                        underLine: false,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16.h),
+                  CustomElevatedButton(title: "Add Event", onPress: () {}),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

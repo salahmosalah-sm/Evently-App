@@ -10,7 +10,7 @@ class ThemeManager {
 
       scaffoldBackgroundColor: ColorsManager.light,
 
-    primaryColor: ColorsManager.blue,
+      primaryColor: ColorsManager.blue,
 
 
       cardColor: ColorsManager.light,
@@ -22,7 +22,8 @@ class ThemeManager {
       ),
 
       appBarTheme: AppBarTheme(
-          color: ColorsManager.light,
+          color: Colors.transparent,
+          elevation: 0,
           foregroundColor: ColorsManager.blue,
           centerTitle: true,
           titleTextStyle: GoogleFonts.roboto(fontSize: 22.sp,
@@ -84,7 +85,6 @@ class ThemeManager {
           fontWeight: FontWeight.bold,
           color: Colors.blue,
           fontStyle: FontStyle.italic,
-          decoration: TextDecoration.underline
         ),
         foregroundColor: ColorsManager.blue,
       ),
@@ -128,7 +128,7 @@ class ThemeManager {
 
 
       iconTheme: IconThemeData(
-        color: ColorsManager.white,
+        color: ColorsManager.black,
     )
 
 

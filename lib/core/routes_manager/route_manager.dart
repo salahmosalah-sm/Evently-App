@@ -1,5 +1,6 @@
 import 'package:evently_app/presentation/authentication/signIn/sign_in.dart';
 import 'package:evently_app/presentation/authentication/signUp/sign_up.dart';
+import 'package:evently_app/presentation/create_event/create_event.dart';
 import 'package:evently_app/presentation/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,8 @@ class RoutesManager
 {
   static const String signUp = "/sign-Up";
   static const String signIN = "/sign-In";
-  static const String mainLayout = "/Main-Layout";
+  static const String mainLayout = "/Main_Layout";
+  static const String createEvent = "/Create_Event";
 
   static Route? router (RouteSettings sitting)
   {
@@ -19,6 +21,8 @@ class RoutesManager
         return MaterialPageRoute(builder: (context) => const SignIn());
       case mainLayout:
         return MaterialPageRoute(builder: (context) => const MainLayout());
+      case createEvent:
+        return MaterialPageRoute(builder: (context) => const CreateEvent());
     }
   }
 }

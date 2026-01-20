@@ -1,4 +1,3 @@
-import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/data/category_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,18 +8,27 @@ class CustomTab extends StatelessWidget {
     super.key,
     required this.category,
     required this.isSelected,
+    required this.selectedTabBG,
+    required this.unSelectedTabBG,
+    required this.selectedTabLabel,
+    required this.unSelectedTabLabel,
   });
 
   final CategoryDM category;
   final bool isSelected;
+
+  final Color selectedTabBG;
+  final Color unSelectedTabBG;
+  final Color selectedTabLabel;
+  final Color unSelectedTabLabel;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: isSelected ? ColorsManager.white : Colors.transparent,
-        border: Border.all(color: ColorsManager.white, width: 2),
+        color: isSelected ? selectedTabBG : unSelectedTabBG,
+        border: Border.all(color: selectedTabBG, width: 2),
         borderRadius: BorderRadius.circular(46.r),
       ),
       child: Row(
@@ -28,7 +36,7 @@ class CustomTab extends StatelessWidget {
           SvgPicture.asset(
             category.iconPath,
             colorFilter: ColorFilter.mode(
-              isSelected ? ColorsManager.blue : ColorsManager.white,
+              isSelected ? selectedTabLabel : unSelectedTabLabel,
               BlendMode.srcIn,
             ),
           ),
@@ -39,10 +47,10 @@ class CustomTab extends StatelessWidget {
                 isSelected
                     ? Theme.of(
                       context,
-                    ).textTheme.bodySmall?.copyWith(color: ColorsManager.blue)
+                    ).textTheme.bodySmall?.copyWith(color: selectedTabLabel)
                     : Theme.of(
                       context,
-                    ).textTheme.bodySmall?.copyWith(color: ColorsManager.white),
+                    ).textTheme.bodySmall?.copyWith(color: unSelectedTabLabel),
           ),
         ],
       ),

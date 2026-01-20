@@ -36,7 +36,10 @@ class CustomAppBar extends StatelessWidget {
                   SizedBox(height: 16.h),
                   Row(
                     children: [
-                      Icon(Icons.location_on_outlined),
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: ColorsManager.white,
+                      ),
                       Text(
                         "Cairo, Egypt",
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -49,7 +52,13 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.h),
-            CustomTabBar(categories: ConstantManager.categories),
+            CustomTabBar(
+              categories: ConstantManager.categories,
+              selectedTabBG: ColorsManager.light,
+              unSelectedTabBG: ColorsManager.blue,
+              selectedTabLabel: ColorsManager.blue,
+              unSelectedTabLabel: ColorsManager.light,
+            ),
           ],
         ),
       ),

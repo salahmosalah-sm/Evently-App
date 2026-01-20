@@ -1,4 +1,5 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
+import 'package:evently_app/core/routes_manager/route_manager.dart';
 import 'package:evently_app/presentation/main_layout/tabs/favourite/favourite.dart';
 import 'package:evently_app/presentation/main_layout/tabs/home/home.dart';
 import 'package:evently_app/presentation/main_layout/tabs/map/map.dart';
@@ -21,10 +22,7 @@ class _MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: tabs[_bottomNavIndex],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: _floatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: _bottomNavigationBar(),
     );
@@ -60,6 +58,17 @@ class _MainLayoutState extends State<MainLayout> {
         ],
       ),
     );
+  }
+
+  Widget _floatingActionButton() {
+    return FloatingActionButton(
+      onPressed: _navigateToCreateEvent,
+      child: const Icon(Icons.add),
+    );
+  }
+
+  void _navigateToCreateEvent() {
+    Navigator.pushNamed(context, RoutesManager.createEvent);
   }
 
   void _onBottomNavBrClick(selectedIndex) {
