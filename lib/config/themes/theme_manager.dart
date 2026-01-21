@@ -110,7 +110,7 @@ class ThemeManager {
 
       titleSmall: GoogleFonts.inter(fontWeight: FontWeight.normal,
           fontSize: 14.sp,
-          color: ColorsManager.white),
+          color: ColorsManager.light),
 
       titleMedium: GoogleFonts.inter(fontWeight: FontWeight.w500,
           fontSize: 20.sp,
@@ -118,11 +118,20 @@ class ThemeManager {
 
       titleLarge: GoogleFonts.inter(fontWeight: FontWeight.bold,
           fontSize: 24.sp,
-          color: ColorsManager.white),
+          color: ColorsManager.light),
 
         labelSmall: GoogleFonts.inter(fontWeight: FontWeight.bold,
             fontSize: 14.sp,
             color: ColorsManager.blue),
+
+        labelMedium: GoogleFonts.inter(fontWeight: FontWeight.w500,
+            fontSize: 16.sp,
+            color: ColorsManager.light),
+
+        labelLarge: GoogleFonts.inter(fontWeight: FontWeight.bold,
+            fontSize: 20.sp,
+            color: ColorsManager.black),
+
 
     ),
 

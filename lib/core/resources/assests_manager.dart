@@ -8,6 +8,8 @@ class ImagesManager
   static const String brand="$base/Brand.png";
 
   static const String sportBlack = "$base/Sports_Black.png";
+
+  static const String profile = "$base/profile_image.png";
 }
 
 
@@ -32,6 +34,8 @@ class IconsManager
   static const String selectedProfile = "$base/Selected_Profile.svg";
 
   static const String sun = "$base/Sun.svg";
+
+  static const String arrowDown = "$base/arrow_Down.svg";
 
   static const String all = "$base/all.svg";
   static const String sport = "$base/sport.svg";
