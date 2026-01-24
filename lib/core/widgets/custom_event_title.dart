@@ -1,4 +1,3 @@
-import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +19,9 @@ class CustomEventTitle extends StatelessWidget {
                 title,
                 style: Theme.of(
                   context,
-                ).textTheme.labelSmall?.copyWith(color: ColorsManager.dark),
+                )
+                    .textTheme
+                    .displaySmall,
               ),
             ),
             Icon(Icons.favorite, color: Theme.of(context).primaryColor),

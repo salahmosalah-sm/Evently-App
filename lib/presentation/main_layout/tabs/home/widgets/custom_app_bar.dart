@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget {
     return Container(
       padding: REdgeInsets.only(top: 32, bottom: 16),
       decoration: BoxDecoration(
-        color: ColorsManager.blue,
+        color: Theme.of(context).colorScheme.onSecondary,
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(24.r)),
       ),
       child: Padding(
@@ -54,10 +54,12 @@ class CustomAppBar extends StatelessWidget {
             SizedBox(height: 16.h),
             CustomTabBar(
               categories: ConstantManager.categories,
-              selectedTabBG: ColorsManager.light,
-              unSelectedTabBG: ColorsManager.blue,
-              selectedTabLabel: ColorsManager.blue,
-              unSelectedTabLabel: ColorsManager.light,
+              selectedTabBG: Theme.of(context).colorScheme.secondary,
+              unSelectedTabBG: Theme.of(context).colorScheme.onSecondary,
+              selectedTabLabel:
+                  Theme.of(context).colorScheme.secondaryContainer,
+              unSelectedTabLabel:
+                  Theme.of(context).colorScheme.onSecondaryContainer,
             ),
           ],
         ),

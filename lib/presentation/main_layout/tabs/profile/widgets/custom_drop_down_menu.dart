@@ -49,6 +49,7 @@ class _CustomDropDownMenuState extends State<CustomDropDownMenu> {
                 SizedBox(
                   height: 35.h,
                   child: DropdownButton<String>(
+                    iconEnabledColor: ColorsManager.blue,
                     items:
                         widget.options.map((String value) {
                           return DropdownMenuItem<String>(

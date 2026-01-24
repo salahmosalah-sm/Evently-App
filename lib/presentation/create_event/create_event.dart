@@ -1,5 +1,4 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
-import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/constant_manager.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_tab_bar.dart';
@@ -33,10 +32,10 @@ class CreateEvent extends StatelessWidget {
             ),
             CustomTabBar(
               categories: ConstantManager.categoriesWithoutAll,
-              selectedTabBG: ColorsManager.blue,
-              unSelectedTabBG: ColorsManager.light,
-              selectedTabLabel: ColorsManager.light,
-              unSelectedTabLabel: ColorsManager.blue,
+              selectedTabBG: Theme.of(context).colorScheme.primary,
+              unSelectedTabBG: Theme.of(context).colorScheme.onPrimary,
+              selectedTabLabel: Theme.of(context).colorScheme.onPrimary,
+              unSelectedTabLabel: Theme.of(context).colorScheme.primary,
             ),
             Padding(
               padding: REdgeInsets.all(16),

@@ -13,8 +13,6 @@ class CustomTextButton extends StatelessWidget {
     return Align(
       alignment: alignment,
       child: TextButton(onPressed: onPress,
-          style: TextButton.styleFrom(textStyle: TextStyle(
-              decoration: underLine ? TextDecoration.underline : null)),
           child: Text(title)),
     );
   }
