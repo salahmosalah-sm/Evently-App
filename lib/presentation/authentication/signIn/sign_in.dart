@@ -6,6 +6,7 @@ import 'package:evently_app/core/widgets/custom_text_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:evently_app/presentation/authentication/widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignIn extends StatefulWidget {
@@ -32,12 +33,12 @@ class _SignInState extends State<SignIn> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CustomTextFormField(
-                      labelText: "Email",
+                      labelText: AppLocalizations.of(context)!.email,
                       prefixIcon: Icons.email_rounded,
                     ),
                     SizedBox(height: 16.h),
                     CustomTextFormField(
-                      labelText: "Password",
+                      labelText: AppLocalizations.of(context)!.password,
                       prefixIcon: Icons.lock,
                       suffixIcon:
                           isPasswordSecure
@@ -48,28 +49,35 @@ class _SignInState extends State<SignIn> {
 
                     ),
                     SizedBox(height: 16.h),
-                    CustomTextButton(title: "Forgot Password ?",onPress: (){},),
+                    CustomTextButton(
+                      title: AppLocalizations.of(context)!.forgotPassword,
+                      onPress: () {},),
                     SizedBox(height: 24.h),
-                    CustomElevatedButton(title: "Sign In",onPress: (){},),
+                    CustomElevatedButton(
+                      title: AppLocalizations.of(context)!.login,
+                      onPress: () {},),
                     SizedBox(height: 24.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don’t Have Account ?", style: Theme
+                        Text(AppLocalizations.of(context)!.dontHaveAccount,
+                          style: Theme
                             .of(context)
                             .textTheme
                             .bodySmall,),
                         CustomTextButton(
-                          title: "Create Account",
+                          title: AppLocalizations.of(context)!.create_account,
                           onPress: () {
                             Navigator.pushNamed(context, RoutesManager.signUp);
                           },
                         )],
                     ),
                     SizedBox(height: 24.h),
-                    const CustomDivider(title: "Or"),
+                    CustomDivider(title: AppLocalizations.of(context)!.or),
                     SizedBox(height: 24.h),
-                    CustomButton(title: "Login With Google",onTap: (){},),
+                    CustomButton(
+                      title: AppLocalizations.of(context)!.login_with_google,
+                      onTap: () {},),
                   ],
                 ),
               ),

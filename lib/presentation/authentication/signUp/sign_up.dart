@@ -1,8 +1,10 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
+import 'package:evently_app/core/routes_manager/route_manager.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUp extends StatefulWidget {
@@ -19,7 +21,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Register"),
+        title: Text(AppLocalizations.of(context)!.register),
       ),
       body: Column(
         children: [
@@ -32,17 +34,17 @@ class _SignUpState extends State<SignUp> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CustomTextFormField(
-                    labelText: "Name",
+                    labelText: AppLocalizations.of(context)!.name,
                     prefixIcon: Icons.person,
                   ),
                   SizedBox(height: 16.h),
                   CustomTextFormField(
-                    labelText: "Email",
+                    labelText: AppLocalizations.of(context)!.email,
                     prefixIcon: Icons.email_rounded,
                   ),
                   SizedBox(height: 16.h),
                   CustomTextFormField(
-                    labelText: "Password",
+                    labelText: AppLocalizations.of(context)!.password,
                     prefixIcon: Icons.lock,
                     suffixIcon:
                     isPasswordSecure
@@ -53,7 +55,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   SizedBox(height: 16.h),
                   CustomTextFormField(
-                    labelText: "Re-Password",
+                    labelText: AppLocalizations.of(context)!.re_password,
                     prefixIcon: Icons.lock,
                     suffixIcon:
                     isRePasswordSecure
@@ -63,16 +65,21 @@ class _SignUpState extends State<SignUp> {
                     onClick: _onRePasswordClick,
                   ),
                   SizedBox(height: 16.h),
-                  CustomElevatedButton(title: "Create Account", onPress: () {}),
+                  CustomElevatedButton(
+                      title: AppLocalizations.of(context)!.create_account,
+                      onPress: () {}),
                   SizedBox(height: 16.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Already Have Account ?", style: Theme
+                      Text(AppLocalizations.of(context)!.already_have_account,
+                        style: Theme
                           .of(context)
                           .textTheme
                           .bodySmall,),
-                      CustomTextButton(title: "Login", onPress: () {})
+                      CustomTextButton(
+                          title: AppLocalizations.of(context)!.login,
+                          onPress: _onLoginClick)
                     ],
                   )
                 ],
@@ -95,5 +102,9 @@ class _SignUpState extends State<SignUp> {
     setState(() {
       isRePasswordSecure = !isRePasswordSecure;
     });
+  }
+
+  void _onLoginClick() {
+    Navigator.pushNamed(context, RoutesManager.signIN);
   }
 }

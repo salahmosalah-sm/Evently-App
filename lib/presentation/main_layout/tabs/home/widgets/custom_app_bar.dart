@@ -2,6 +2,7 @@ import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/constant_manager.dart';
 import 'package:evently_app/core/widgets/custom_tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -26,7 +27,7 @@ class CustomAppBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Welcome Back ✨",
+                    AppLocalizations.of(context)!.welcome_back,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Text(
