@@ -9,44 +9,50 @@ class CustomProfileTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      padding: REdgeInsets.all(16),
+      padding: REdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: ColorsManager.blue,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(65.r)),
       ),
       width: double.infinity,
-      height: 220.h,
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(24.r),
-              topRight: Radius.circular(1000.r),
-              bottomLeft: Radius.circular(1000.r),
-              bottomRight: Radius.circular(1000.r),
+      height: 240.h,
+      child: SafeArea(
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.zero,
+                topRight: Radius.circular(24.r),
+                bottomLeft: Radius.circular(24.r),
+                bottomRight: Radius.circular(24.r),
+              ),
+              child: Image.asset(
+                ImagesManager.profile,
+                width: 124.w,
+                height: 124.h,
+                fit: BoxFit.cover,
+              ),
             ),
-            child: Image.asset(ImagesManager.profile),
-          ),
-          SizedBox(width: 16.w),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "John Safwat",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                SizedBox(height: 10.h),
-                Text(
-                  "johnsafwat.route@gmail.com",
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-              ],
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "John Safwat",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  SizedBox(height: 10.h),
+                  Text(
+                    "johnsafwat.route@gmail.com",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

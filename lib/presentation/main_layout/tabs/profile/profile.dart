@@ -1,4 +1,5 @@
 import 'package:evently_app/presentation/main_layout/tabs/profile/widgets/custom_drop_down_menu.dart';
+import 'package:evently_app/presentation/main_layout/tabs/profile/widgets/custom_logout_button.dart';
 import 'package:evently_app/presentation/main_layout/tabs/profile/widgets/custom_profile_top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,11 +30,12 @@ class _ProfileState extends State<Profile> {
           title: AppLocalizations.of(context)!.theme,
           options: [
             AppLocalizations.of(context)!.light,
-            AppLocalizations.of(context)!.dark
+            AppLocalizations.of(context)!.dark,
           ],
           onChange: _onThemeChange,
           label: selectedTheme,
         ),
+        CustomLogoutButton(),
       ],
     );
   }

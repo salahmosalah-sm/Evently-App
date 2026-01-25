@@ -12,4 +12,5 @@ class ColorsManager
   static const Color blue = Color(0xFF5669FF);
   static const Color ofWhite = Color(0xFFF4EBDC);
   static const Color red = Color(0xFFE43E2B);
+  static const Color red56 = Color(0xFFFF5659);
 }

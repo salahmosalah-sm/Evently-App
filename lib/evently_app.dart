@@ -21,13 +21,13 @@ class EventlyApp extends StatelessWidget {
             initialRoute: RoutesManager.mainLayout,
             theme: ThemeManager.light,
             darkTheme: ThemeManager.dark,
-            themeMode: ThemeMode.dark,
+            themeMode: ThemeMode.light,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: [
               Locale('en'), // English
               Locale('ar'), // Spanish
             ],
-            locale: Locale('ar'),
+            locale: Locale('en'),
           );
         }
     );
