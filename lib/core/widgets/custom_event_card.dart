@@ -15,7 +15,7 @@ class CustomEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage(ImagesManager.sportBlack),
           fit: BoxFit.fill,
         ),
@@ -30,7 +30,7 @@ class CustomEventCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomEventDate(date: event.date),
-          Spacer(),
+          const Spacer(),
           CustomEventTitle(title: event.title),
         ],
       ),

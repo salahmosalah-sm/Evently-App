@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomAppBar(),
+        const CustomAppBar(),
         Expanded(
           child: ListView.builder(
             itemCount: 10,

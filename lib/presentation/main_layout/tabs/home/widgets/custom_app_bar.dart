@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget {
                   SizedBox(height: 16.h),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_on_outlined,
                         color: ColorsManager.white,
                       ),

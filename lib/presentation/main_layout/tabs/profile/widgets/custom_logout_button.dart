@@ -10,7 +10,7 @@ class CustomLogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: REdgeInsets.only(bottom: 32, top: 265, left: 16, right: 16),
+      padding: REdgeInsets.symmetric(vertical: 32, horizontal: 16),
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
@@ -28,7 +28,7 @@ class CustomLogoutButton extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(Icons.logout_outlined),
+            const Icon(Icons.logout_outlined),
             SizedBox(width: 8.w),
             Text(AppLocalizations.of(context)!.logout),
           ],

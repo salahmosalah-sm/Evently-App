@@ -65,8 +65,8 @@ class ThemeManager {
     inputDecorationTheme: InputDecorationTheme(
       prefixIconColor: ColorsManager.grey,
       suffixIconColor: ColorsManager.grey,
-      labelStyle: TextStyle(color: ColorsManager.grey),
-      hintStyle: TextStyle(color: ColorsManager.grey),
+      labelStyle: const TextStyle(color: ColorsManager.grey),
+      hintStyle: const TextStyle(color: ColorsManager.grey),
 
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16.r),
@@ -168,7 +168,7 @@ class ThemeManager {
       ),
     ),
 
-    iconTheme: IconThemeData(color: ColorsManager.black),
+    iconTheme: const IconThemeData(color: ColorsManager.black),
   );
 
   static final ThemeData dark = ThemeData(
@@ -232,8 +232,8 @@ class ThemeManager {
     inputDecorationTheme: InputDecorationTheme(
       prefixIconColor: ColorsManager.ofWhite,
       suffixIconColor: ColorsManager.ofWhite,
-      labelStyle: TextStyle(color: ColorsManager.ofWhite),
-      hintStyle: TextStyle(color: ColorsManager.ofWhite),
+      labelStyle: const TextStyle(color: ColorsManager.ofWhite),
+      hintStyle: const TextStyle(color: ColorsManager.ofWhite),
 
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16.r),
@@ -335,6 +335,6 @@ class ThemeManager {
       ),
     ),
 
-    iconTheme: IconThemeData(color: ColorsManager.ofWhite),
+    iconTheme: const IconThemeData(color: ColorsManager.ofWhite),
   );
 }

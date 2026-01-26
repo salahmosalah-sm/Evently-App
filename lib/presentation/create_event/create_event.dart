@@ -65,7 +65,7 @@ class CreateEvent extends StatelessWidget {
                   SizedBox(height: 16.h),
                   Row(
                     children: [
-                      Icon(Icons.calendar_month_outlined),
+                      const Icon(Icons.calendar_month_outlined),
                       SizedBox(width: 10.w),
                       Expanded(
                         child: Text(
@@ -82,7 +82,7 @@ class CreateEvent extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(Icons.access_time_outlined),
+                      const Icon(Icons.access_time_outlined),
                       SizedBox(width: 10.w),
                       Expanded(
                         child: Text(

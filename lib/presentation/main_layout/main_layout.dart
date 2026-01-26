@@ -5,6 +5,7 @@ import 'package:evently_app/presentation/main_layout/tabs/home/home.dart';
 import 'package:evently_app/presentation/main_layout/tabs/map/map.dart';
 import 'package:evently_app/presentation/main_layout/tabs/profile/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainLayout extends StatefulWidget {
@@ -36,22 +37,22 @@ class _MainLayoutState extends State<MainLayout> {
         onTap: _onBottomNavBrClick,
         items: [
           BottomNavigationBarItem(
-            label: "Home",
+            label: AppLocalizations.of(context)!.home,
             icon: SvgPicture.asset(IconsManager.unSelectedHome),
             activeIcon: SvgPicture.asset(IconsManager.selectedHome),
           ),
           BottomNavigationBarItem(
-            label: "Map",
+            label: AppLocalizations.of(context)!.map,
             icon: SvgPicture.asset(IconsManager.unSelectedMap),
             activeIcon: SvgPicture.asset(IconsManager.selectedMap),
           ),
           BottomNavigationBarItem(
-            label: "Favourite",
+            label: AppLocalizations.of(context)!.favourite,
             icon: SvgPicture.asset(IconsManager.unSelectedFavourite),
             activeIcon: SvgPicture.asset(IconsManager.selectedFavourite),
           ),
           BottomNavigationBarItem(
-            label: "Profile",
+            label: AppLocalizations.of(context)!.profile,
             icon: SvgPicture.asset(IconsManager.unSelectedProfile),
             activeIcon: SvgPicture.asset(IconsManager.selectedProfile),
           ),

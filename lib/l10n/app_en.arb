@@ -43,6 +43,7 @@
   "dark": "Dark",
   "logout": "Logout",
   "create_event": "Create Event",
+  "english": "English",
   "event_title": "Event Title",
   "event_description": "Event Description",
   "event_date": "Event Date",
