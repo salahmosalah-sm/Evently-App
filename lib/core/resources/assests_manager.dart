@@ -8,6 +8,14 @@ class ImagesManager
   static const String brand="$base/Brand.png";
 
   static const String sportBlack = "$base/Sports_Black.png";
+  static const String eatingBlack = "$base/Eating_black.png";
+  static const String exhibitionBlack = "$base/Exhibition_Black.png";
+  static const String holidayBlack = "$base/Holiday_Black.png";
+  static const String meetingBlack = "$base/Meeting_Black.png";
+  static const String workShopBlack = "$base/Work Shop_Black.png";
+  static const String gamingBlack = "$base/Gaming_Black.png";
+  static const String bookClubBlack = "$base/Book Club_black.png";
+  static const String birthdayBlack = "$base/Birthday_Black.png";
 
   static const String profile = "$base/profile_image.png";
 }

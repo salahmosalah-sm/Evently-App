@@ -1,4 +1,4 @@
-import 'package:evently_app/data/category_data_model.dart';
+import 'package:evently_app/data/data_model/category_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';

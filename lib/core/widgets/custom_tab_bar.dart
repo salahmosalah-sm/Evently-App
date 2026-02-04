@@ -1,5 +1,5 @@
 import 'package:evently_app/core/widgets/custom_tab.dart';
-import 'package:evently_app/data/category_data_model.dart';
+import 'package:evently_app/data/data_model/category_data_model.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
@@ -10,6 +10,7 @@ class CustomTabBar extends StatefulWidget {
     required this.unSelectedTabBG,
     required this.selectedTabLabel,
     required this.unSelectedTabLabel,
+    required this.onCategoryTabClicked,
   });
 
   final List<CategoryDM> categories;
@@ -18,7 +19,7 @@ class CustomTabBar extends StatefulWidget {
   final Color unSelectedTabBG;
   final Color selectedTabLabel;
   final Color unSelectedTabLabel;
-
+  final void Function(CategoryDM) onCategoryTabClicked;
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
 }
@@ -53,6 +54,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
   }
 
   void _onTabItemClicked(currentIndex) {
+    widget.onCategoryTabClicked(widget.categories[currentIndex]);
     setState(() {
       selectedIndex = currentIndex;
     });

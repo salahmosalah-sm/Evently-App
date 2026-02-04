@@ -1,7 +1,13 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
-import 'package:evently_app/data/category_data_model.dart';
+import 'package:evently_app/data/data_model/category_data_model.dart';
 
 class ConstantManager {
+  ConstantManager._();
+
+  static String weakPassword = "weak-password";
+  static String emailAlreadyInUse = "email-already-in-use";
+  static String invalidCredential = "invalid-credential";
+
   static List<CategoryDM> categories = [
     CategoryDM(
       id: 0,
@@ -18,49 +24,49 @@ class ConstantManager {
     CategoryDM(
       id: 2,
       categoryName: "Birthday",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.birthdayBlack,
       iconPath: IconsManager.birthday,
     ),
     CategoryDM(
       id: 3,
       categoryName: "Meeting",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.meetingBlack,
       iconPath: IconsManager.meeting,
     ),
     CategoryDM(
       id: 4,
       categoryName: "Gaming",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.gamingBlack,
       iconPath: IconsManager.gaming,
     ),
     CategoryDM(
       id: 5,
       categoryName: "Eating",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.eatingBlack,
       iconPath: IconsManager.eating,
     ),
     CategoryDM(
       id: 6,
       categoryName: "Holiday",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.holidayBlack,
       iconPath: IconsManager.holiday,
     ),
     CategoryDM(
       id: 7,
       categoryName: "Exhibition",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.exhibitionBlack,
       iconPath: IconsManager.exhibition,
     ),
     CategoryDM(
       id: 8,
       categoryName: "WorkShop",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.workShopBlack,
       iconPath: IconsManager.workShop,
     ),
     CategoryDM(
       id: 9,
       categoryName: "BookClub",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.bookClubBlack,
       iconPath: IconsManager.bookClub,
     ),
   ];
@@ -74,49 +80,49 @@ class ConstantManager {
     CategoryDM(
       id: 2,
       categoryName: "Birthday",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.birthdayBlack,
       iconPath: IconsManager.birthday,
     ),
     CategoryDM(
       id: 3,
       categoryName: "Meeting",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.meetingBlack,
       iconPath: IconsManager.meeting,
     ),
     CategoryDM(
       id: 4,
       categoryName: "Gaming",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.gamingBlack,
       iconPath: IconsManager.gaming,
     ),
     CategoryDM(
       id: 5,
       categoryName: "Eating",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.eatingBlack,
       iconPath: IconsManager.eating,
     ),
     CategoryDM(
       id: 6,
       categoryName: "Holiday",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.holidayBlack,
       iconPath: IconsManager.holiday,
     ),
     CategoryDM(
       id: 7,
       categoryName: "Exhibition",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.exhibitionBlack,
       iconPath: IconsManager.exhibition,
     ),
     CategoryDM(
       id: 8,
       categoryName: "WorkShop",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.workShopBlack,
       iconPath: IconsManager.workShop,
     ),
     CategoryDM(
       id: 9,
       categoryName: "BookClub",
-      imagePath: ImagesManager.sportBlack,
+      imagePath: ImagesManager.bookClubBlack,
       iconPath: IconsManager.bookClub,
     ),
   ];

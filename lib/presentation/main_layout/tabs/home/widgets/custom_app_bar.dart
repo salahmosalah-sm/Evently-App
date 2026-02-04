@@ -1,12 +1,23 @@
 import 'package:evently_app/core/resources/colors_manager.dart';
-import 'package:evently_app/core/resources/constant_manager.dart';
-import 'package:evently_app/core/widgets/custom_tab_bar.dart';
+import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+import '../../../../../core/resources/constant_manager.dart';
+import '../../../../../core/widgets/custom_tab_bar.dart';
+import '../../../../../data/data_model/category_data_model.dart';
+
+class CustomAppBar extends StatefulWidget {
+  const CustomAppBar({super.key, required this.onCategoryTabClicked});
+
+  final void Function(CategoryDM) onCategoryTabClicked;
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +41,9 @@ class CustomAppBar extends StatelessWidget {
                     AppLocalizations.of(context)!.welcome_back,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
+                  SizedBox(height: 6.h,),
                   Text(
-                    "John Safwat",
+                    UserDataModel.currentUser!.name,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(height: 16.h),
@@ -54,6 +66,7 @@ class CustomAppBar extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             CustomTabBar(
+              onCategoryTabClicked: _onClickedCategoryItem,
               categories: ConstantManager.categories,
               selectedTabBG: Theme.of(context).colorScheme.secondary,
               unSelectedTabBG: Theme.of(context).colorScheme.onSecondary,
@@ -66,5 +79,10 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onClickedCategoryItem(CategoryDM category) {
+    widget.onCategoryTabClicked(category);
+    setState(() {});
   }
 }

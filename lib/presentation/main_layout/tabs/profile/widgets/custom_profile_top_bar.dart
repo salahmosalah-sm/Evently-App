@@ -1,5 +1,6 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
+import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -40,12 +41,12 @@ class CustomProfileTopBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "John Safwat",
+                    UserDataModel.currentUser!.name,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(height: 10.h),
                   Text(
-                    "johnsafwat.route@gmail.com",
+                    UserDataModel.currentUser!.email,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],

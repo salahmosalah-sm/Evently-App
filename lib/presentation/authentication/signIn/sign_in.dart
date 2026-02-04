@@ -1,13 +1,20 @@
+import 'package:evently_app/core/resources/analog_utils.dart';
 import 'package:evently_app/core/resources/assests_manager.dart';
+import 'package:evently_app/core/resources/constant_manager.dart';
 import 'package:evently_app/core/routes_manager/route_manager.dart';
 import 'package:evently_app/core/widgets/custom_button.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
+import 'package:evently_app/core/widgets/custom_validator.dart';
+import 'package:evently_app/data/firebase_services/firebase_services.dart';
 import 'package:evently_app/presentation/authentication/widgets/custom_divider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../data/data_model/user_data_model.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -18,6 +25,36 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   bool isPasswordSecure = true;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    autoSignIn();
+  }
+
+  void autoSignIn() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      UserDataModel.currentUser = await FireBaseServices.getUserFromFireBase(
+        FirebaseAuth.instance.currentUser!.uid,
+      );
+      Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,59 +63,83 @@ class _SignInState extends State<SignIn> {
           children: [
             Expanded(child: Image.asset(ImagesManager.logo)),
             Expanded(
-              flex: 4,
-              child: Padding(
-                padding: REdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CustomTextFormField(
-                      labelText: AppLocalizations.of(context)!.email,
-                      prefixIcon: Icons.email_rounded,
-                    ),
-                    SizedBox(height: 16.h),
-                    CustomTextFormField(
-                      labelText: AppLocalizations.of(context)!.password,
-                      prefixIcon: Icons.lock,
-                      suffixIcon:
-                          isPasswordSecure
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                      isSecure: isPasswordSecure,
-                      onClick: _onClickPassword,
-
-                    ),
-                    SizedBox(height: 16.h),
-                    CustomTextButton(
-                      title: AppLocalizations.of(context)!.forgotPassword,
-                      onPress: () {},),
-                    SizedBox(height: 24.h),
-                    CustomElevatedButton(
-                      title: AppLocalizations.of(context)!.login,
-                      onPress: () {},),
-                    SizedBox(height: 24.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              flex: 3,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: REdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(AppLocalizations.of(context)!.dontHaveAccount,
-                          style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodySmall,),
+                        CustomTextFormField(
+                          textEditingController: emailController,
+                          validator:
+                              (input) => CustomValidator.emailValidator(
+                                input,
+                                context,
+                              ),
+                          labelText: AppLocalizations.of(context)!.email,
+                          prefixIcon: Icons.email_rounded,
+                        ),
+                        SizedBox(height: 16.h),
+                        CustomTextFormField(
+                          textEditingController: passwordController,
+                          validator:
+                              (input) => CustomValidator.passwordValidator(
+                                input,
+                                context,
+                              ),
+                          labelText: AppLocalizations.of(context)!.password,
+                          prefixIcon: Icons.lock,
+                          suffixIcon:
+                              isPasswordSecure
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                          isSecure: isPasswordSecure,
+                          onClick: _onClickPassword,
+                        ),
+                        SizedBox(height: 16.h),
                         CustomTextButton(
-                          title: AppLocalizations.of(context)!.create_account,
-                          onPress: () {
-                            Navigator.pushNamed(context, RoutesManager.signUp);
-                          },
-                        )],
+                          title: AppLocalizations.of(context)!.forgotPassword,
+                          onPress: () {},
+                        ),
+                        SizedBox(height: 24.h),
+                        CustomElevatedButton(
+                          title: AppLocalizations.of(context)!.login,
+                          onPress: _onClickLogin,
+                        ),
+                        SizedBox(height: 24.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.dontHaveAccount,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            CustomTextButton(
+                              title:
+                                  AppLocalizations.of(context)!.create_account,
+                              onPress: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  RoutesManager.signUp,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 24.h),
+                        CustomDivider(title: AppLocalizations.of(context)!.or),
+                        SizedBox(height: 24.h),
+                        CustomButton(
+                          title:
+                              AppLocalizations.of(context)!.login_with_google,
+                          onTap: () {},
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 24.h),
-                    CustomDivider(title: AppLocalizations.of(context)!.or),
-                    SizedBox(height: 24.h),
-                    CustomButton(
-                      title: AppLocalizations.of(context)!.login_with_google,
-                      onTap: () {},),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -92,5 +153,41 @@ class _SignInState extends State<SignIn> {
     setState(() {
       isPasswordSecure = !isPasswordSecure;
     });
+  }
+
+  void _onClickLogin() async {
+    if (!formKey.currentState!.validate()) return;
+    try {
+      AnalogUtils.loadingAnalog(context, message: "Logging in...");
+      await FireBaseServices.signIn(
+        emailController.text,
+        passwordController.text,
+      );
+      AnalogUtils.hideAnalog(context);
+      AnalogUtils.showMessageAnalog(
+        context: context,
+        content: "User Logged In Successfully",
+        posTitle: "GO",
+        onPosClick: () {
+          Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      AnalogUtils.hideAnalog(context);
+      if (e.code == ConstantManager.invalidCredential) {
+        AnalogUtils.showMessageAnalog(
+          context: context,
+          content: "Wrong email or password",
+          negTitle: "Try again",
+        );
+      }
+    } catch (e) {
+      AnalogUtils.hideAnalog(context);
+      AnalogUtils.showMessageAnalog(
+        context: context,
+        content: e.toString(),
+        negTitle: "Try again",
+      );
+    }
   }
 }

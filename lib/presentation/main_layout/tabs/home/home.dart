@@ -1,33 +1,59 @@
+import 'package:evently_app/core/resources/constant_manager.dart';
 import 'package:evently_app/core/widgets/custom_event_card.dart';
-import 'package:evently_app/data/event_data_model.dart';
-import 'package:evently_app/presentation/main_layout/tabs/home/widgets/Custom_app_bar.dart';
+import 'package:evently_app/data/data_model/category_data_model.dart';
+import 'package:evently_app/data/data_model/event_data_model.dart';
+import 'package:evently_app/data/data_model/user_data_model.dart';
+import 'package:evently_app/data/firebase_services/firebase_services.dart';
+import 'package:evently_app/presentation/main_layout/tabs/home/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  CategoryDM selectedCategory = ConstantManager.categories[0];
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomAppBar(),
+        CustomAppBar(onCategoryTabClicked: _onClickedCategoryItem),
         Expanded(
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder:
-                (context, index) => CustomEventCard(
-                  event: EventDM(
-                    category: AppLocalizations.of(context)!.sport,
-                    title: "Meeting for Updating The Development Method ",
-                    description: "Meeting for Updating The Development Method ",
-                    date: DateTime.now(),
-                    time: TimeOfDay.now(),
-                  ),
-                ),
+          child: StreamBuilder(
+            stream: FireBaseServices.getRealTimeEventsFromFireBase(
+              selectedCategory,
+            ),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Center(child: Text(snapshot.error.toString()));
+              }
+              List<EventDM> events = snapshot.data ?? [];
+              return ListView.builder(
+                itemBuilder:
+                    (context, index) => CustomEventCard(
+                      key: ValueKey(events[index].id),
+                      event: events[index],
+                      favEvent: UserDataModel.currentUser!.favEventsList
+                          .contains(events[index].id),
+                    ),
+                itemCount: events.length,
+              );
+            },
           ),
         ),
       ],
     );
+  }
+
+  void _onClickedCategoryItem(CategoryDM category) {
+    setState(() {
+      selectedCategory = category;
+    });
   }
 }

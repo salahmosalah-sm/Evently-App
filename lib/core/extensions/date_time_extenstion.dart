@@ -5,4 +5,14 @@ extension DataFormte on DateTime {
     DateFormat formatter = DateFormat("MMMM");
     return formatter.format(this);
   }
+
+  String get formatDate {
+    DateFormat formatter = DateFormat("dd-MM-yyyy");
+    return formatter.format(this);
+  }
+
+  String get formatTime {
+    DateFormat formatter = DateFormat("hh:mm a");
+    return formatter.format(this);
+  }
 }

@@ -90,6 +90,7 @@ class ThemeManager {
       ),
     ),
 
+
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         textStyle: GoogleFonts.inter(
@@ -166,6 +167,17 @@ class ThemeManager {
         fontSize: 20.sp,
         color: ColorsManager.black,
       ),
+
+      bodyMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.bold,
+        fontSize: 20.sp,
+        color: ColorsManager.blue,
+      ),
+    ),
+
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: ColorsManager.red,
+
     ),
 
     iconTheme: const IconThemeData(color: ColorsManager.black),
@@ -333,7 +345,19 @@ class ThemeManager {
         fontSize: 14.sp,
         color: ColorsManager.ofWhite,
       ),
+
+      bodyMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.bold,
+        fontSize: 20.sp,
+        color: ColorsManager.blue,
+      ),
     ),
+
+
+    snackBarTheme: const SnackBarThemeData(
+        backgroundColor: ColorsManager.red
+    ),
+
 
     iconTheme: const IconThemeData(color: ColorsManager.ofWhite),
   );
