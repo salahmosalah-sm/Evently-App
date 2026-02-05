@@ -173,6 +173,11 @@ class ThemeManager {
         fontSize: 20.sp,
         color: ColorsManager.blue,
       ),
+
+        displayLarge: GoogleFonts.inter(
+          fontWeight: FontWeight.bold,
+          fontSize: 28.sp,
+          color: ColorsManager.blue,)
     ),
 
     snackBarTheme: const SnackBarThemeData(
@@ -351,6 +356,11 @@ class ThemeManager {
         fontSize: 20.sp,
         color: ColorsManager.blue,
       ),
+
+        displayLarge: GoogleFonts.inter(
+          fontWeight: FontWeight.bold,
+          fontSize: 28.sp,
+          color: ColorsManager.blue,)
     ),
 
 

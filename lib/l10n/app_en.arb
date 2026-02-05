@@ -75,5 +75,6 @@
   "logoutConfirmationTitle": "Confirm Logout",
   "logoutConfirmationMessage": "Are you sure you want to log out?",
   "cancel": "Cancel",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "no_favourite_events": "No Favourite Events"
 }

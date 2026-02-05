@@ -14,8 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../data/data_model/user_data_model.dart';
-
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -35,16 +33,6 @@ class _SignInState extends State<SignIn> {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    autoSignIn();
-  }
-
-  void autoSignIn() async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      UserDataModel.currentUser = await FireBaseServices.getUserFromFireBase(
-        FirebaseAuth.instance.currentUser!.uid,
-      );
-      Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
-    }
   }
 
   @override

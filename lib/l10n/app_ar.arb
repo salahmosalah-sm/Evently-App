@@ -74,5 +74,6 @@
   "logoutConfirmationTitle": "تأكيد تسجيل الخروج",
   "logoutConfirmationMessage": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
   "cancel": "إلغاء",
-  "confirm": "تأكيد"
+  "confirm": "تأكيد",
+  "no_favourite_events": "لا يوجد فاعليات مفضله"
 }

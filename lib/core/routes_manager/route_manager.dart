@@ -4,13 +4,15 @@ import 'package:evently_app/presentation/create_event/create_event.dart';
 import 'package:evently_app/presentation/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/main_layout/tabs/widgets/splash_screen_check_user.dart';
+
 class RoutesManager
 {
   static const String signUp = "/sign-Up";
   static const String signIN = "/sign-In";
   static const String mainLayout = "/Main-Layout";
   static const String createEvent = "/Create-Event";
-
+  static const String splashScreenCheckUser = "/Splash-Screen-Check-User";
   static Route? router (RouteSettings sitting)
   {
     switch(sitting.name)
@@ -23,6 +25,9 @@ class RoutesManager
         return MaterialPageRoute(builder: (context) => const MainLayout());
       case createEvent:
         return MaterialPageRoute(builder: (context) => const CreateEvent());
+      case splashScreenCheckUser:
+        return MaterialPageRoute(
+            builder: (context) => const SplashScreenCheckUser());
       default:
         return MaterialPageRoute(builder: (context) => const SignIn());
     }
