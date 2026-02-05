@@ -7,6 +7,7 @@ import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:evently_app/core/widgets/custom_validator.dart';
 import 'package:evently_app/data/data_model/category_data_model.dart';
 import 'package:evently_app/data/data_model/event_data_model.dart';
+import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:evently_app/data/firebase_services/firebase_services.dart';
 import 'package:evently_app/presentation/create_event/widgets/custom_create_event_app_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -202,6 +203,7 @@ class _CreateEventState extends State<CreateEvent> {
     }
     try {
       EventDM event = EventDM(
+        uid: UserDataModel.currentUser!.id,
         category: selectedCategory,
         title: titleController.text,
         description: descriptionController.text,

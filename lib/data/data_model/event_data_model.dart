@@ -6,6 +6,7 @@ class EventDM {
   String id;
   final CategoryDM? category;
   final String title;
+  final String uid;
   final String description;
   final DateTime dateTime;
   final int? lat;
@@ -18,11 +19,12 @@ class EventDM {
     required this.description,
     required this.dateTime,
     this.lat,
-    this.lng,
+    this.lng, required this.uid,
   });
 
   EventDM.fromJson(Map<String, dynamic> json) :this(
       id: json["id"],
+      uid: json["uid"],
       title: json["title"],
       description: json["description"],
       dateTime: (json["dateTime"] as Timestamp).toDate(),
@@ -34,6 +36,7 @@ class EventDM {
   Map<String, dynamic> toJson() =>
       {
         "id": id,
+        "uid": uid,
         "categoryId": category?.id,
         "title": title,
         "description": description,
