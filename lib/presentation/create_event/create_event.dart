@@ -176,23 +176,24 @@ class _CreateEventState extends State<CreateEvent> {
                           }
                         });
                       },
-                      child: Expanded(
-                        child: Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: ColorsManager.blue,
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                              padding: REdgeInsets.all(8),
-                              margin: REdgeInsets.all(8),
-                              child: Icon(
-                                Icons.my_location_outlined,
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
+                      child: Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: ColorsManager.blue,
+                              borderRadius: BorderRadius.circular(8.r),
                             ),
-                            location == null
-                                ? Text(
+                            padding: REdgeInsets.all(8),
+                            margin: REdgeInsets.all(8),
+                            child: Icon(
+                              Icons.my_location_outlined,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ),
+                          Expanded(
+                            child:
+                                location == null
+                                    ? Text(
                                   AppLocalizations.of(
                                     context,
                                   )!.choose_event_location,
@@ -203,8 +204,8 @@ class _CreateEventState extends State<CreateEvent> {
                                       .copyWith(color: ColorsManager.blue),
                                   maxLines: 2,
                                 ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(height: 16.h),

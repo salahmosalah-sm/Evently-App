@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         alignment: Alignment.center,
-        padding: REdgeInsets.symmetric(horizontal: 72, vertical: 16),
+        padding: REdgeInsets.symmetric(horizontal: 55, vertical: 16),
         decoration: BoxDecoration(
           border: Border.all(width: 1.w, color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(16.r),
@@ -23,7 +23,10 @@ class CustomButton extends StatelessWidget {
         child: Row(children: [
           SvgPicture.asset(IconsManager.google),
           SizedBox(width: 10.w,),
-          Text(title,style: Theme.of(context).textTheme.titleMedium,),
+          Expanded(child: Text(title, style: Theme
+              .of(context)
+              .textTheme
+              .titleMedium,)),
         ]),
       ),
     );

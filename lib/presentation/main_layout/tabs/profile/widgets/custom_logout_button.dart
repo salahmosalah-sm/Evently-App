@@ -13,7 +13,7 @@ class CustomLogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: REdgeInsets.symmetric(vertical: 32, horizontal: 16),
+      padding: REdgeInsets.only(bottom: 28, left: 16, right: 16),
       child: ElevatedButton(
         onPressed: () {
           AnalogUtils.showMessageAnalog(
