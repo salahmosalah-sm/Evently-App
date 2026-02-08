@@ -3,10 +3,13 @@ import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/resources/constant_manager.dart';
 import '../../../../../core/widgets/custom_tab_bar.dart';
 import '../../../../../data/data_model/category_data_model.dart';
+import '../../../../../providers/config_provider.dart';
 
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key, required this.onCategoryTabClicked});
@@ -18,6 +21,15 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+  late ConfigProvider locationProvider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    locationProvider = Provider.of<ConfigProvider>(context, listen: false);
+    locationProvider.getLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +53,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     AppLocalizations.of(context)!.welcome_back,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  SizedBox(height: 6.h,),
+                  SizedBox(height: 6.h),
                   Text(
                     UserDataModel.currentUser!.name,
                     style: Theme.of(context).textTheme.titleLarge,
@@ -53,11 +65,46 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         Icons.location_on_outlined,
                         color: ColorsManager.white,
                       ),
-                      Text(
-                        "Cairo, Egypt",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
+                      Consumer<ConfigProvider>(
+                        builder: (context, provider, _) {
+                          if (provider.myLocation == null) {
+                            return Text(
+                              AppLocalizations.of(context)!.loadingUserLocation,
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.w500),
+                            );
+                          }
+                          return FutureBuilder<String>(
+                            future: getPlaceName(
+                              provider.myLocation!.latitude!,
+                              provider.myLocation!.longitude!,
+                            ),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Text(
+                                  AppLocalizations.of(context)!
+                                      .loadingUserLocation,
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.w500),
+                                );
+                              }
+                              return Text(
+                                snapshot.data!,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(fontWeight: FontWeight.w500),
+                              );
+                            },
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -85,4 +132,21 @@ class _CustomAppBarState extends State<CustomAppBar> {
     widget.onCategoryTabClicked(category);
     setState(() {});
   }
+
+  Future<String> getPlaceName(double lat, double lng) async {
+    try {
+      final placeMarks = await placemarkFromCoordinates(lat, lng);
+
+      if (placeMarks.isEmpty) {
+        return "Unknown location";
+      }
+
+      final place = placeMarks.first;
+
+      return '${place.administrativeArea ?? ''}, ${place.country ?? ''}';
+    } catch (e) {
+      return "Unknown location";
+    }
+  }
+
 }

@@ -194,7 +194,7 @@ class _CreateEventState extends State<CreateEvent> {
                             child:
                                 location == null
                                     ? Text(
-                                  AppLocalizations.of(
+                                      AppLocalizations.of(
                                     context,
                                   )!.choose_event_location,
                                 )

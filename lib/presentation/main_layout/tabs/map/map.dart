@@ -27,7 +27,6 @@ class _MapsState extends State<Maps> {
     // TODO: implement initState
     super.initState();
     locationProvider = Provider.of<ConfigProvider>(context, listen: false);
-    locationProvider.getLocation();
   }
 
   @override
@@ -124,7 +123,7 @@ class _MapsState extends State<Maps> {
   void _onMyLocationPressed() async {
     isMyLocationPressed = !isMyLocationPressed;
     if (locationProvider.myLocation == null) return;
-    await locationProvider.goToMyLocation(
+    locationProvider.goToMyLocation(
       LatLng(
         locationProvider.myLocation!.latitude!,
         locationProvider.myLocation!.longitude!,

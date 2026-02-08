@@ -87,17 +87,17 @@ class _SignInState extends State<SignIn> {
                           isSecure: isPasswordSecure,
                           onClick: _onClickPassword,
                         ),
-                        SizedBox(height: 16.h),
+                        SizedBox(height: 4.h),
                         CustomTextButton(
                           title: AppLocalizations.of(context)!.forgotPassword,
                           onPress: () {},
                         ),
-                        SizedBox(height: 24.h),
+                        SizedBox(height: 8.h),
                         CustomElevatedButton(
                           title: AppLocalizations.of(context)!.login,
                           onPress: _onClickLogin,
                         ),
-                        SizedBox(height: 24.h),
+                        SizedBox(height: 16.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -117,13 +117,13 @@ class _SignInState extends State<SignIn> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 24.h),
+                        SizedBox(height: 16.h),
                         CustomDivider(title: AppLocalizations.of(context)!.or),
-                        SizedBox(height: 24.h),
+                        SizedBox(height: 16.h),
                         CustomButton(
                           title:
                               AppLocalizations.of(context)!.login_with_google,
-                          onTap: () {},
+                          onTap: _signWithGoogle,
                         ),
                       ],
                     ),
@@ -171,6 +171,32 @@ class _SignInState extends State<SignIn> {
       }
     } catch (e) {
       AnalogUtils.hideAnalog(context);
+      AnalogUtils.showMessageAnalog(
+        context: context,
+        content: e.toString(),
+        negTitle: "Try again",
+      );
+    }
+  }
+
+  void _signWithGoogle() async {
+    try {
+      await FireBaseServices.signInWithGoogle();
+      if (!FireBaseServices.isGoogleUserCreated) {
+        AnalogUtils.hideAnalog(context);
+        return;
+      }
+      AnalogUtils.loadingAnalog(context, message: "Logging in...");
+      AnalogUtils.hideAnalog(context);
+      AnalogUtils.showMessageAnalog(
+        context: context,
+        content: "User Logged In Successfully",
+        posTitle: "GO",
+        onPosClick: () {
+          Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+        },
+      );
+    } catch (e) {
       AnalogUtils.showMessageAnalog(
         context: context,
         content: e.toString(),

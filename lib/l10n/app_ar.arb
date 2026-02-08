@@ -56,6 +56,7 @@
   "choose_event_location": "اختر موقع الفعالية",
   "event_details": "تفاصيل الفعالية",
   "tap_on_location_to_select": "اضغط على المكان للاختيار",
+  "loadingUserLocation": "جاري تحميل موقع المستخدم",
   "edit_event": "تعديل الفعالية",
   "update_event": "تحديث الفعالية",
   "please_enter_event_title": "من فضلك ادخل عنوان للحدث",

@@ -50,6 +50,7 @@
   "event_time": "Event Time",
   "title": "Title",
   "description": "Description",
+  "loadingUserLocation": "Loading user location",
   "choose_date": "Choose Date",
   "choose_time": "Choose Time",
   "location": "Location",

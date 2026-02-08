@@ -155,7 +155,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _onLoginClick() {
-    Navigator.pushNamed(context, RoutesManager.signIN);
+    Navigator.pushReplacementNamed(context, RoutesManager.signIN);
   }
 
   void _onClickCreateAccount() async {

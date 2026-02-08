@@ -6,9 +6,11 @@ import 'package:location/location.dart';
 
 class ConfigProvider extends ChangeNotifier {
   ThemeMode currentTheme = ThemeMode.light;
-  String currentLang = "en";
   bool get isLight => currentTheme == ThemeMode.light;
+
+  String currentLang = "en";
   bool get isEng => currentLang == "en";
+
   void themeChanger(ThemeMode newTheme) {
     if (currentTheme == newTheme) return;
     currentTheme = newTheme;
@@ -25,7 +27,7 @@ class ConfigProvider extends ChangeNotifier {
   String locationState = "Get location state";
   LocationData? myLocation;
 
-  getLocation() async {
+  Future<void> getLocation() async {
     bool isPermissionEnabled = await _checkPermission();
     if (!isPermissionEnabled) {
       locationState = "Permission denied";
@@ -71,7 +73,7 @@ class ConfigProvider extends ChangeNotifier {
   };
   GoogleMapController? mapController;
 
-  goToMyLocation(LatLng location, {bool fromButton = false}) {
+  void goToMyLocation(LatLng location, {bool fromButton = false}) {
     if (mapController == null) return;
     if (fromButton) {
       mapController!.animateCamera(
@@ -102,7 +104,7 @@ class ConfigProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeSelectedLocation(LatLng newLocation) {
+  void changeSelectedLocation(LatLng newLocation) {
     goToMyLocation(newLocation);
     notifyListeners();
   }

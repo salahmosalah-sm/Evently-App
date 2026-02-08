@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/data/data_model/category_data_model.dart';
 import 'package:evently_app/data/data_model/event_data_model.dart';
 import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FireBaseServices {
   static CollectionReference<EventDM> getEventsCollection() {
@@ -131,5 +134,35 @@ class FireBaseServices {
     UserDataModel user = UserDataModel.currentUser!;
     user.favEventsList.remove(event.id);
     await updateUserData(user);
+  }
+
+  static late bool isGoogleUserCreated;
+  static final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  static Future<void> signInWithGoogle() async {
+    await _googleSignIn.signOut();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    isGoogleUserCreated = googleUser != null;
+    if (googleUser == null) return;
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithCredential(credential);
+    UserDataModel userDM = UserDataModel(
+      id: userCredential.user!.uid,
+      name: userCredential.user!.displayName!,
+      email: userCredential.user!.email!,
+      favEventsList: [],
+    );
+    await addUserToFireBase(userDM);
+    UserDataModel user = await getUserFromFireBase(userCredential.user!.uid);
+    UserDataModel.currentUser = user;
   }
 }
