@@ -9,8 +9,8 @@ class EventDM {
   final String uid;
   final String description;
   final DateTime dateTime;
-  final int? lat;
-  final int? lng;
+  final double? lat;
+  final double? lng;
 
   EventDM({
     this.id = "",
@@ -18,28 +18,33 @@ class EventDM {
     required this.title,
     required this.description,
     required this.dateTime,
-    this.lat,
-    this.lng, required this.uid,
+    this.lat = 0.0,
+    this.lng = 0.0,
+    required this.uid,
   });
 
-  EventDM.fromJson(Map<String, dynamic> json) :this(
-      id: json["id"],
-      uid: json["uid"],
-      title: json["title"],
-      description: json["description"],
-      dateTime: (json["dateTime"] as Timestamp).toDate(),
-      category: ConstantManager.categoriesWithoutAll.firstWhere(
-            (category) => category.id == json["categoryId"],
-      )
-  );
+  EventDM.fromJson(Map<String, dynamic> json)
+    : this(
+        id: json["id"],
+        uid: json["uid"],
+        title: json["title"],
+        lat: json["lat"] ?? 0.0,
+        lng: json["lng"] ?? 0.0,
+        description: json["description"],
+        dateTime: (json["dateTime"] as Timestamp).toDate(),
+        category: ConstantManager.categoriesWithoutAll.firstWhere(
+          (category) => category.id == json["categoryId"],
+        ),
+      );
 
-  Map<String, dynamic> toJson() =>
-      {
-        "id": id,
-        "uid": uid,
-        "categoryId": category?.id,
-        "title": title,
-        "description": description,
-        "dateTime": Timestamp.fromDate(dateTime),
-      };
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "uid": uid,
+    "categoryId": category?.id,
+    "title": title,
+    "lat": lat,
+    "lng": lng,
+    "description": description,
+    "dateTime": Timestamp.fromDate(dateTime),
+  };
 }

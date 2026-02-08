@@ -18,7 +18,6 @@ class ThemeManager {
     ),
 
     scaffoldBackgroundColor: ColorsManager.light,
-
     primaryColor: ColorsManager.blue,
 
     cardColor: ColorsManager.light,
@@ -89,7 +88,6 @@ class ThemeManager {
         borderSide: BorderSide(width: 1.w, color: ColorsManager.grey),
       ),
     ),
-
 
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -174,16 +172,26 @@ class ThemeManager {
         color: ColorsManager.blue,
       ),
 
-        displayLarge: GoogleFonts.inter(
-          fontWeight: FontWeight.bold,
-          fontSize: 28.sp,
-          color: ColorsManager.blue,)
+      displayLarge: GoogleFonts.inter(
+        fontWeight: FontWeight.bold,
+        fontSize: 28.sp,
+        color: ColorsManager.blue,
+      ),
+
+      displayMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w500,
+        fontSize: 20.sp,
+        color: ColorsManager.white,
+      ),
+
+      headlineSmall: GoogleFonts.inter(
+        fontWeight: FontWeight.bold,
+        fontSize: 14.sp,
+        color: ColorsManager.blue,
+      ),
     ),
 
-    snackBarTheme: const SnackBarThemeData(
-      backgroundColor: ColorsManager.red,
-
-    ),
+    snackBarTheme: const SnackBarThemeData(backgroundColor: ColorsManager.red),
 
     iconTheme: const IconThemeData(color: ColorsManager.black),
   );
@@ -357,17 +365,26 @@ class ThemeManager {
         color: ColorsManager.blue,
       ),
 
-        displayLarge: GoogleFonts.inter(
-          fontWeight: FontWeight.bold,
-          fontSize: 28.sp,
-          color: ColorsManager.blue,)
+      displayLarge: GoogleFonts.inter(
+        fontWeight: FontWeight.bold,
+        fontSize: 28.sp,
+        color: ColorsManager.blue,
+      ),
+
+      displayMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w500,
+        fontSize: 20.sp,
+        color: ColorsManager.white,
+      ),
+
+      headlineSmall: GoogleFonts.inter(
+        fontWeight: FontWeight.bold,
+        fontSize: 14.sp,
+        color: ColorsManager.blue,
+      ),
     ),
 
-
-    snackBarTheme: const SnackBarThemeData(
-        backgroundColor: ColorsManager.red
-    ),
-
+    snackBarTheme: const SnackBarThemeData(backgroundColor: ColorsManager.red),
 
     iconTheme: const IconThemeData(color: ColorsManager.ofWhite),
   );

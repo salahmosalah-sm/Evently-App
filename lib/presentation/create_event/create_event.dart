@@ -1,5 +1,7 @@
 import 'package:evently_app/core/extensions/date_time_extenstion.dart';
+import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/constant_manager.dart';
+import 'package:evently_app/core/routes_manager/route_manager.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_tab_bar.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';
@@ -14,6 +16,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
@@ -30,7 +34,8 @@ class _CreateEventState extends State<CreateEvent> {
   late TextEditingController descriptionController;
   bool _preCachedImage = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  LatLng? location;
+  late String placeName;
   @override
   void initState() {
     // TODO: implement initState
@@ -85,15 +90,13 @@ class _CreateEventState extends State<CreateEvent> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.title,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodySmall,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     SizedBox(height: 16.h),
                     CustomTextFormField(
-                      validator: (input) =>
-                          CustomValidator.titleValidator(input, context),
+                      validator:
+                          (input) =>
+                              CustomValidator.titleValidator(input, context),
                       textEditingController: titleController,
                       labelText: AppLocalizations.of(context)!.event_title,
                       prefixIcon: Icons.edit_note,
@@ -101,18 +104,18 @@ class _CreateEventState extends State<CreateEvent> {
                     SizedBox(height: 16.h),
                     Text(
                       AppLocalizations.of(context)!.description,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodySmall,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     SizedBox(height: 16.h),
                     CustomTextFormField(
-                      validator: (input) =>
-                          CustomValidator.descriptionValidator(input, context),
+                      validator:
+                          (input) => CustomValidator.descriptionValidator(
+                            input,
+                            context,
+                          ),
                       textEditingController: descriptionController,
-                      labelText: AppLocalizations.of(context)!
-                          .event_description,
+                      labelText:
+                          AppLocalizations.of(context)!.event_description,
                       maxLines: 5,
                     ),
                     SizedBox(height: 16.h),
@@ -123,10 +126,7 @@ class _CreateEventState extends State<CreateEvent> {
                         Expanded(
                           child: Text(
                             selectedDate.formatDate,
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodySmall,
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
                         CustomTextButton(
@@ -143,10 +143,7 @@ class _CreateEventState extends State<CreateEvent> {
                         Expanded(
                           child: Text(
                             selectedDate.formatTime,
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodySmall,
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
                         CustomTextButton(
@@ -155,6 +152,60 @@ class _CreateEventState extends State<CreateEvent> {
                           underLine: false,
                         ),
                       ],
+                    ),
+                    SizedBox(height: 16.h),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: ColorsManager.blue),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutesManager.selectedLocation,
+                        ).then((newLocation) async {
+                          if (newLocation != null) {
+                            location = newLocation as LatLng;
+                            placeName = await getPlaceName(
+                              location!.latitude,
+                              location!.longitude,
+                            );
+                            setState(() {});
+                          }
+                        });
+                      },
+                      child: Expanded(
+                        child: Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: ColorsManager.blue,
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              padding: REdgeInsets.all(8),
+                              margin: REdgeInsets.all(8),
+                              child: Icon(
+                                Icons.my_location_outlined,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                            ),
+                            location == null
+                                ? Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.choose_event_location,
+                                )
+                                : Text(
+                                  placeName,
+                                  style: Theme.of(context).textTheme.bodySmall!
+                                      .copyWith(color: ColorsManager.blue),
+                                  maxLines: 2,
+                                ),
+                          ],
+                        ),
+                      ),
                     ),
                     SizedBox(height: 16.h),
                     CustomElevatedButton(
@@ -178,22 +229,21 @@ class _CreateEventState extends State<CreateEvent> {
         context: context,
         builder: (_) {
           return CupertinoAlertDialog(
-            title: Text(AppLocalizations.of(context)!.warning, style: Theme
-                .of(context)
-                .textTheme
-                .bodyMedium,),
+            title: Text(
+              AppLocalizations.of(context)!.warning,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             content: Text(
-                AppLocalizations.of(context)!.invalid_date, style: Theme
-                .of(context)
-                .textTheme
-                .bodyMedium),
+              AppLocalizations.of(context)!.invalid_date,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text(AppLocalizations.of(context)!.ok, style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyMedium),
+                child: Text(
+                  AppLocalizations.of(context)!.ok,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
             ],
           );
@@ -203,6 +253,8 @@ class _CreateEventState extends State<CreateEvent> {
     }
     try {
       EventDM event = EventDM(
+        lat: location?.latitude,
+        lng: location?.longitude,
         uid: UserDataModel.currentUser!.id,
         category: selectedCategory,
         title: titleController.text,
@@ -226,14 +278,14 @@ class _CreateEventState extends State<CreateEvent> {
           firstDate: DateTime.now(),
           lastDate: DateTime.now().add(const Duration(days: 4015)),
         ) ??
-            selectedDate;
+        selectedDate;
     setState(() {});
   }
 
   void _showEventTime() async {
     selectedTime =
         await showTimePicker(context: context, initialTime: TimeOfDay.now()) ??
-            selectedTime;
+        selectedTime;
     selectedDate = selectedDate.copyWith(
       hour: selectedTime.hour,
       minute: selectedTime.minute,
@@ -245,5 +297,14 @@ class _CreateEventState extends State<CreateEvent> {
   void _onClickedCategoryItem(CategoryDM category) {
     selectedCategory = category;
     setState(() {});
+  }
+
+  Future<String> getPlaceName(double lat, double lng) async {
+    List<Placemark> placeMarks = await placemarkFromCoordinates(lat, lng);
+
+    Placemark place = placeMarks.first;
+
+    return '${place.locality}, '
+        '${place.subAdministrativeArea}, ';
   }
 }

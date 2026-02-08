@@ -24,9 +24,13 @@ class _SplashScreenCheckUserState extends State<SplashScreenCheckUser> {
       UserDataModel.currentUser = await FireBaseServices.getUserFromFireBase(
         FirebaseAuth.instance.currentUser!.uid,
       );
-      Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+      });
     } else {
-      Navigator.pushReplacementNamed(context, RoutesManager.signIN);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, RoutesManager.signIN);
+      });
     }
   }
 
