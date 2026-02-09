@@ -49,6 +49,8 @@ dependencies:
   geocoding: ^4.0.0
   http: ^1.1.0
   google_sign_in: ^6.3.0
+  introduction_screen: ^4.0.0
+  shared_preferences: ^2.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

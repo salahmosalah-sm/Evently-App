@@ -17,6 +17,12 @@ class ImagesManager
   static const String bookClubBlack = "$base/Book Club_black.png";
   static const String birthdayBlack = "$base/Birthday_Black.png";
 
+  static const String onBoardingLogo = "$base/onBoarding logo.png";
+  static const String onBoardingFirstPage = "$base/onBoarding first page.png";
+  static const String onBoardingSecPage = "$base/onBoarding sec page.png";
+  static const String onBoardingThirdPage = "$base/onBoarding third page.png";
+  static const String onBoardingForthPage = "$base/onBoarding 4 page.png";
+
   static const String profile = "$base/profile_image.png";
 }
 
@@ -44,6 +50,10 @@ class IconsManager
   static const String sun = "$base/Sun.svg";
 
   static const String arrowDown = "$base/arrow_Down.svg";
+
+  static const String onBoardingArrowForward =
+      "$base/onBoarding arrow forward.svg";
+  static const String onBoardingArrowBack = "$base/onboardind arrow back.svg";
 
   static const String all = "$base/all.svg";
   static const String sport = "$base/sport.svg";

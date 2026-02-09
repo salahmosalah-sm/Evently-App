@@ -18,6 +18,7 @@ class ThemeManager {
     ),
 
     scaffoldBackgroundColor: ColorsManager.light,
+
     primaryColor: ColorsManager.blue,
 
     cardColor: ColorsManager.light,
@@ -188,6 +189,12 @@ class ThemeManager {
         fontWeight: FontWeight.bold,
         fontSize: 14.sp,
         color: ColorsManager.blue,
+      ),
+
+      headlineMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w500,
+        fontSize: 14.sp,
+        color: ColorsManager.black,
       ),
     ),
 
@@ -381,6 +388,12 @@ class ThemeManager {
         fontWeight: FontWeight.bold,
         fontSize: 14.sp,
         color: ColorsManager.blue,
+      ),
+
+      headlineMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w500,
+        fontSize: 14.sp,
+        color: ColorsManager.ofWhite,
       ),
     ),
 

@@ -3,12 +3,14 @@ import 'package:evently_app/presentation/authentication/signUp/sign_up.dart';
 import 'package:evently_app/presentation/create_event/create_event.dart';
 import 'package:evently_app/presentation/create_event/widgets/selected_location.dart';
 import 'package:evently_app/presentation/main_layout/main_layout.dart';
+import 'package:evently_app/presentation/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/main_layout/tabs/widgets/splash_screen_check_user.dart';
 
 class RoutesManager
 {
+  static const String onBoarding = "/on-Boarding";
   static const String signUp = "/sign-Up";
   static const String signIN = "/sign-In";
   static const String mainLayout = "/Main-Layout";
@@ -19,6 +21,8 @@ class RoutesManager
   {
     switch(sitting.name)
         {
+      case onBoarding:
+        return MaterialPageRoute(builder: (context) => const Onboarding());
       case signUp:
         return MaterialPageRoute(builder: (context) => const SignUp());
       case signIN:
