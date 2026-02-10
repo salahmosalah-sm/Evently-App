@@ -55,6 +55,9 @@ class IconsManager
       "$base/onBoarding arrow forward.svg";
   static const String onBoardingArrowBack = "$base/onboardind arrow back.svg";
 
+  static const String editButton = "$base/edit button.svg";
+  static const String deleteButton = "$base/delete button.svg";
+
   static const String all = "$base/all.svg";
   static const String sport = "$base/sport.svg";
   static const String birthday = "$base/birthday.svg";

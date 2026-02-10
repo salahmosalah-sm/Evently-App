@@ -20,8 +20,9 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CreateEvent extends StatefulWidget {
-  const CreateEvent({super.key});
+  const CreateEvent({super.key, this.event});
 
+  final EventDM? event;
   @override
   State<CreateEvent> createState() => _CreateEventState();
 }
@@ -35,13 +36,17 @@ class _CreateEventState extends State<CreateEvent> {
   bool _preCachedImage = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   LatLng? location;
-  late String placeName;
+  String? placeName;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     titleController = TextEditingController();
     descriptionController = TextEditingController();
+    _initEditData();
+    widget.event != null
+        ? getPlaceName(widget.event!.lat!, widget.event!.lng!)
+        : null;
   }
 
   @override
@@ -67,13 +72,21 @@ class _CreateEventState extends State<CreateEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.create_event)),
+      appBar: AppBar(
+        title: Text(
+          widget.event == null
+              ? AppLocalizations.of(context)!.create_event
+              : AppLocalizations.of(context)!.edit_event,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             CustomCreateEventAppBar(selectedCategory: selectedCategory),
             CustomTabBar(
+              initialIndex: widget.event == null ? 0 : widget.event!.category!
+                  .id - 1,
               onCategoryTabClicked: _onClickedCategoryItem,
               categories: ConstantManager.categoriesWithoutAll,
               selectedTabBG: Theme.of(context).colorScheme.primary,
@@ -168,7 +181,7 @@ class _CreateEventState extends State<CreateEvent> {
                         ).then((newLocation) async {
                           if (newLocation != null) {
                             location = newLocation as LatLng;
-                            placeName = await getPlaceName(
+                            getPlaceName(
                               location!.latitude,
                               location!.longitude,
                             );
@@ -195,12 +208,16 @@ class _CreateEventState extends State<CreateEvent> {
                                 location == null
                                     ? Text(
                                       AppLocalizations.of(
-                                    context,
-                                  )!.choose_event_location,
+                                        context,
+                                      )!.choose_event_location,
                                 )
-                                : Text(
-                                  placeName,
-                                  style: Theme.of(context).textTheme.bodySmall!
+                                    : Text(
+                                  placeName ?? AppLocalizations.of(context)!
+                                      .choose_event_location,
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodySmall!
                                       .copyWith(color: ColorsManager.blue),
                                   maxLines: 2,
                                 ),
@@ -210,8 +227,12 @@ class _CreateEventState extends State<CreateEvent> {
                     ),
                     SizedBox(height: 16.h),
                     CustomElevatedButton(
-                      title: AppLocalizations.of(context)!.add_event,
-                      onPress: _createEvent,
+                      title:
+                      widget.event == null
+                          ? AppLocalizations.of(context)!.add_event
+                          : AppLocalizations.of(context)!.update_event,
+                      onPress:
+                      widget.event == null ? _createEvent : _upDateEvent,
                     ),
                   ],
                 ),
@@ -268,7 +289,124 @@ class _CreateEventState extends State<CreateEvent> {
       await FireBaseServices.addEventToFireBase(event);
       Navigator.pop(context);
     } catch (e) {
-      //
+      showDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoAlertDialog(
+            title: Text("Error", style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium),
+            content: Text(
+              e.toString(),
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  AppLocalizations.of(context)!.ok,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  void _upDateEvent() async {
+    if (!formKey.currentState!.validate()) return;
+    if (selectedDate.isBefore(DateTime.now())) {
+      showDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoAlertDialog(
+            title: Text(
+              AppLocalizations.of(context)!.warning,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium,
+            ),
+            content: Text(
+              AppLocalizations.of(context)!.invalid_date,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  AppLocalizations.of(context)!.ok,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+    try {
+      EventDM event = EventDM(
+        id: widget.event!.id,
+        lat: location?.latitude,
+        lng: location?.longitude,
+        uid: UserDataModel.currentUser!.id,
+        category: selectedCategory,
+        title: titleController.text,
+        description: descriptionController.text,
+        dateTime: selectedDate.copyWith(
+          hour: selectedTime.hour,
+          minute: selectedTime.minute,
+        ),
+      );
+      await FireBaseServices.updateEventFormTheFirebase(event);
+      Navigator.pop(context);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoAlertDialog(
+            title: Text("Error", style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium),
+            content: Text(
+              e.toString(),
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  AppLocalizations.of(context)!.ok,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyMedium,
+                ),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -300,12 +438,27 @@ class _CreateEventState extends State<CreateEvent> {
     setState(() {});
   }
 
-  Future<String> getPlaceName(double lat, double lng) async {
+  Future<void> getPlaceName(double lat, double lng) async {
     List<Placemark> placeMarks = await placemarkFromCoordinates(lat, lng);
 
     Placemark place = placeMarks.first;
-
-    return '${place.locality}, '
+    placeName =
+    '${place.locality}, '
         '${place.subAdministrativeArea}, ';
+    setState(() {});
+  }
+
+  void _initEditData() {
+    if (widget.event != null) {
+      titleController.text = widget.event!.title;
+      descriptionController.text = widget.event!.description;
+      selectedCategory = widget.event!.category!;
+      selectedDate = widget.event!.dateTime;
+      selectedTime = TimeOfDay(
+        hour: widget.event!.dateTime.hour,
+        minute: widget.event!.dateTime.minute,
+      );
+      location = LatLng(widget.event!.lat!, widget.event!.lng!);
+    }
   }
 }

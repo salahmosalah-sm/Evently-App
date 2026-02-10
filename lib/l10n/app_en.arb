@@ -51,6 +51,7 @@
   "title": "Title",
   "description": "Description",
   "loadingUserLocation": "Loading user location",
+  "loadingEventLocation": "Loading event location",
   "choose_date": "Choose Date",
   "choose_time": "Choose Time",
   "location": "Location",

@@ -124,13 +124,13 @@ class FireBaseServices {
     await userDocs.set(userDM, SetOptions(merge: true));
   }
 
-  static addEventToFavorite(EventDM event) async {
+  static Future<void> addEventToFavorite(EventDM event) async {
     UserDataModel user = UserDataModel.currentUser!;
     user.favEventsList.add(event.id);
     await addUserToFireBase(user);
   }
 
-  static removeEventToFavorite(EventDM event) async {
+  static Future<void> removeEventToFavorite(EventDM event) async {
     UserDataModel user = UserDataModel.currentUser!;
     user.favEventsList.remove(event.id);
     await updateUserData(user);
@@ -164,5 +164,17 @@ class FireBaseServices {
     await addUserToFireBase(userDM);
     UserDataModel user = await getUserFromFireBase(userCredential.user!.uid);
     UserDataModel.currentUser = user;
+  }
+
+  static Future<void> updateEventFormTheFirebase(EventDM event) async {
+    CollectionReference<EventDM> eventCollection = getEventsCollection();
+    DocumentReference<EventDM> document = eventCollection.doc(event.id);
+    await document.update(event.toJson());
+  }
+
+  static Future<void> deleteEventInTheFirebase(EventDM event) async {
+    CollectionReference<EventDM> eventCollection = getEventsCollection();
+    DocumentReference<EventDM> document = eventCollection.doc(event.id);
+    await document.delete();
   }
 }

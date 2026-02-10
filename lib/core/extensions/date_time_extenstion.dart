@@ -11,6 +11,11 @@ extension DataFormte on DateTime {
     return formatter.format(this);
   }
 
+  String get formatDateWithMonth {
+    DateFormat formatter = DateFormat("dd MMMM yyyy");
+    return formatter.format(this);
+  }
+
   String get formatTime {
     DateFormat formatter = DateFormat("hh:mm a");
     return formatter.format(this);

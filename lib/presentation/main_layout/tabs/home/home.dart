@@ -1,4 +1,5 @@
 import 'package:evently_app/core/resources/constant_manager.dart';
+import 'package:evently_app/core/routes_manager/route_manager.dart';
 import 'package:evently_app/core/widgets/custom_event_card.dart';
 import 'package:evently_app/data/data_model/category_data_model.dart';
 import 'package:evently_app/data/data_model/event_data_model.dart';
@@ -36,11 +37,18 @@ class _HomeState extends State<Home> {
               List<EventDM> events = snapshot.data ?? [];
               return ListView.builder(
                 itemBuilder:
-                    (context, index) => CustomEventCard(
-                      key: ValueKey(events[index].id),
-                      event: events[index],
-                      favEvent: UserDataModel.currentUser!.favEventsList
-                          .contains(events[index].id),
+                    (context, index) =>
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesManager.eventDetails,
+                            arguments: events[index]);
+                      },
+                      child: CustomEventCard(
+                        key: ValueKey(events[index].id),
+                        event: events[index],
+                        favEvent: UserDataModel.currentUser!.favEventsList
+                            .contains(events[index].id),
+                      ),
                     ),
                 itemCount: events.length,
               );
