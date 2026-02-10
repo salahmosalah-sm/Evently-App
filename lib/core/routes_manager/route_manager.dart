@@ -1,4 +1,5 @@
 import 'package:evently_app/data/data_model/event_data_model.dart';
+import 'package:evently_app/presentation/authentication/reset_password/reset_password.dart';
 import 'package:evently_app/presentation/authentication/signIn/sign_in.dart';
 import 'package:evently_app/presentation/authentication/signUp/sign_up.dart';
 import 'package:evently_app/presentation/create_event/create_event.dart';
@@ -14,6 +15,7 @@ class RoutesManager {
   static const String onBoarding = "/on-Boarding";
   static const String signUp = "/sign-Up";
   static const String signIN = "/sign-In";
+  static const String resetPassword = "/Reset-Password";
   static const String mainLayout = "/Main-Layout";
   static const String createEvent = "/Create-Event";
   static const String splashScreenCheckUser = "/Splash-Screen-Check-User";
@@ -28,6 +30,8 @@ class RoutesManager {
         return MaterialPageRoute(builder: (context) => const SignUp());
       case signIN:
         return MaterialPageRoute(builder: (context) => const SignIn());
+      case resetPassword:
+        return MaterialPageRoute(builder: (context) => const ResetPassword());
       case mainLayout:
         return MaterialPageRoute(builder: (context) => const MainLayout());
       case createEvent:

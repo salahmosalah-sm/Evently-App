@@ -111,11 +111,31 @@ class FireBaseServices {
     await addUserToFireBase(userDM);
   }
 
-  static Future<void> signIn(String email, String password) async {
+  static Future<UserDataModel> signIn(String email, String password) async {
     UserCredential credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
+
+    final User? firebaseUser = credential.user;
+    if (firebaseUser == null) {
+      throw FirebaseAuthException(
+        code: 'user-null',
+        message: 'User not found',
+      );
+    }
+
+    await firebaseUser.reload();
+
+    if (!firebaseUser.emailVerified) {
+      await firebaseUser.sendEmailVerification();
+      await FirebaseAuth.instance.signOut();
+      throw FirebaseAuthException(
+        code: 'email-not-verified',
+        message: 'Please verify your email first',
+      );
+    }
     UserDataModel user = await getUserFromFireBase(credential.user!.uid);
     UserDataModel.currentUser = user;
+    return user;
   }
 
   static Future<void> updateUserData(UserDataModel userDM) async {
@@ -138,6 +158,7 @@ class FireBaseServices {
 
   static late bool isGoogleUserCreated;
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
+
 
   static Future<void> signInWithGoogle() async {
     await _googleSignIn.signOut();

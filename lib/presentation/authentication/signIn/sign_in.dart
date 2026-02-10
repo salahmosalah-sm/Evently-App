@@ -90,7 +90,7 @@ class _SignInState extends State<SignIn> {
                         SizedBox(height: 4.h),
                         CustomTextButton(
                           title: AppLocalizations.of(context)!.forgotPassword,
-                          onPress: () {},
+                          onPress: _onClickForgetPassword,
                         ),
                         SizedBox(height: 8.h),
                         CustomElevatedButton(
@@ -109,7 +109,7 @@ class _SignInState extends State<SignIn> {
                               title:
                                   AppLocalizations.of(context)!.create_account,
                               onPress: () {
-                                Navigator.pushReplacementNamed(
+                                Navigator.pushNamed(
                                   context,
                                   RoutesManager.signUp,
                                 );
@@ -146,7 +146,8 @@ class _SignInState extends State<SignIn> {
   void _onClickLogin() async {
     if (!formKey.currentState!.validate()) return;
     try {
-      AnalogUtils.loadingAnalog(context, message: "Logging in...");
+      AnalogUtils.loadingAnalog(
+          context, message: AppLocalizations.of(context)!.logging_in);
       await FireBaseServices.signIn(
         emailController.text,
         passwordController.text,
@@ -154,8 +155,8 @@ class _SignInState extends State<SignIn> {
       AnalogUtils.hideAnalog(context);
       AnalogUtils.showMessageAnalog(
         context: context,
-        content: "User Logged In Successfully",
-        posTitle: "GO",
+        content: AppLocalizations.of(context)!.user_logged_in,
+        posTitle: AppLocalizations.of(context)!.go_button,
         onPosClick: () {
           Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
         },
@@ -165,8 +166,16 @@ class _SignInState extends State<SignIn> {
       if (e.code == ConstantManager.invalidCredential) {
         AnalogUtils.showMessageAnalog(
           context: context,
-          content: "Wrong email or password",
-          negTitle: "Try again",
+          content: AppLocalizations.of(context)!.wrong_email_password,
+          negTitle: AppLocalizations.of(context)!.try_again,
+        );
+      }
+      if (e.code == 'email-not-verified') {
+        AnalogUtils.showMessageAnalog(
+          context: context,
+          content:
+          AppLocalizations.of(context)!.email_not_verified,
+          negTitle: AppLocalizations.of(context)!.ok,
         );
       }
     } catch (e) {
@@ -174,7 +183,7 @@ class _SignInState extends State<SignIn> {
       AnalogUtils.showMessageAnalog(
         context: context,
         content: e.toString(),
-        negTitle: "Try again",
+        negTitle: AppLocalizations.of(context)!.try_again,
       );
     }
   }
@@ -186,12 +195,13 @@ class _SignInState extends State<SignIn> {
         AnalogUtils.hideAnalog(context);
         return;
       }
-      AnalogUtils.loadingAnalog(context, message: "Logging in...");
+      AnalogUtils.loadingAnalog(
+          context, message: AppLocalizations.of(context)!.logging_in);
       AnalogUtils.hideAnalog(context);
       AnalogUtils.showMessageAnalog(
         context: context,
-        content: "User Logged In Successfully",
-        posTitle: "GO",
+        content: AppLocalizations.of(context)!.user_logged_in,
+        posTitle: AppLocalizations.of(context)!.go_button,
         onPosClick: () {
           Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
         },
@@ -200,8 +210,12 @@ class _SignInState extends State<SignIn> {
       AnalogUtils.showMessageAnalog(
         context: context,
         content: e.toString(),
-        negTitle: "Try again",
+        negTitle: AppLocalizations.of(context)!.try_again,
       );
     }
+  }
+
+  void _onClickForgetPassword() {
+    Navigator.pushNamed(context, RoutesManager.resetPassword);
   }
 }

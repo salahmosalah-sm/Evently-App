@@ -134,3 +134,4 @@ class _MapsState extends State<Maps> {
     isMyLocationPressed = false;
   }
 }
+

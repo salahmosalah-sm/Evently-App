@@ -30,7 +30,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     nameController = TextEditingController();
     emailController = TextEditingController();
@@ -40,7 +39,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     nameController.dispose();
     emailController.dispose();
@@ -161,29 +159,32 @@ class _SignUpState extends State<SignUp> {
   void _onClickCreateAccount() async {
     if (!formKey.currentState!.validate()) return;
     try {
-      AnalogUtils.loadingAnalog(context, message: "Registering...");
+      AnalogUtils.loadingAnalog(
+          context, message: AppLocalizations.of(context)!.registering);
       await FireBaseServices.signUp(
           emailController.text, passwordController.text, nameController.text);
       AnalogUtils.hideAnalog(context);
       AnalogUtils.showMessageAnalog(context: context,
-          content: "User Registered Successfully",
-          posTitle: "Login",
+          content: AppLocalizations.of(context)!.user_registered,
+          posTitle: AppLocalizations.of(context)!.login,
           onPosClick: _onLoginClick);
     } on FirebaseAuthException catch (e) {
       AnalogUtils.hideAnalog(context);
       if (e.code == ConstantManager.weakPassword) {
         AnalogUtils.showMessageAnalog(context: context,
-            content: "The password provided is too weak.",
-            negTitle: "Try again");
+            content: AppLocalizations.of(context)!.weak_password,
+            negTitle: AppLocalizations.of(context)!.try_again);
       } else if (e.code == ConstantManager.emailAlreadyInUse) {
         AnalogUtils.showMessageAnalog(context: context,
-            content: "The account already exists for that email.",
-            negTitle: "Try again");
+            content: AppLocalizations.of(context)!.email_exists,
+            negTitle: AppLocalizations.of(context)!.try_again);
       }
     } catch (e) {
       AnalogUtils.hideAnalog(context);
       AnalogUtils.showMessageAnalog(
-          context: context, content: e.toString(), negTitle: "Try again");
+          context: context,
+          content: e.toString(),
+          negTitle: AppLocalizations.of(context)!.try_again);
     }
   }
 }
