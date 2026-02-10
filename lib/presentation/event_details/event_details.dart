@@ -26,7 +26,6 @@ class _EventDetailsState extends State<EventDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getPlaceName();
   }

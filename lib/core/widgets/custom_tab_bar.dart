@@ -30,7 +30,6 @@ class _CustomTabBarState extends State<CustomTabBar> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     selectedIndex = widget.initialIndex;
   }
