@@ -21,14 +21,12 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     emailController = TextEditingController();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailController.dispose();
   }
