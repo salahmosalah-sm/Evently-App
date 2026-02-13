@@ -58,8 +58,8 @@ class Onboarding extends StatelessWidget {
           secondBodyText == null || secondBodyWidget == null
               ? const Text("")
               : Row(
-            children: [0
-              Text(
+                children: [
+                  Text(
                 secondBodyText,
                 style: Theme
                     .of(context)
