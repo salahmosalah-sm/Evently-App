@@ -62,6 +62,10 @@ class FireBaseServices {
   }
 
   static Future<List<EventDM>> getFavEventsFromFireBase() async {
+    if (UserDataModel.currentUser == null ||
+        UserDataModel.currentUser!.favEventsList.isEmpty) {
+      return [];
+    }
     CollectionReference<EventDM> eventCollection = getEventsCollection();
     QuerySnapshot<EventDM> querySnapshot =
         await eventCollection

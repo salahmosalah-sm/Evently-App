@@ -1,11 +1,13 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/routes_manager/route_manager.dart';
+import 'package:evently_app/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:provider/provider.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({super.key});
@@ -18,29 +20,60 @@ class Onboarding extends StatelessWidget {
     return Image.asset(assetName, width: width);
   }
 
+
   @override
   Widget build(BuildContext context) {
+    final ConfigProvider configProvider = Provider.of<ConfigProvider>(context);
     Widget buildTitle(String text) {
       return Text(text, style: Theme.of(context).textTheme.bodyMedium!);
     }
 
-    Widget buildBody(String text, {String? body1, String? body2}) {
+    Widget buildBody(String text, {
+      String? firstBodyText,
+      String? secondBodyText,
+      Widget? firstBodyWidget,
+      Widget? secondBodyWidget,
+    }) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(text, style: Theme.of(context).textTheme.headlineMedium!),
           SizedBox(height: 16.h),
-          body1 == null
+          firstBodyText == null || firstBodyWidget == null
               ? const Text("")
-              : Text(body1, style: Theme.of(context).textTheme.titleMedium!),
+              : Row(
+            children: [
+              Text(
+                firstBodyText,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium!,
+              ),
+              const Spacer(),
+              firstBodyWidget,
+            ],
+          ),
           SizedBox(height: 16.h),
-          body2 == null
+          secondBodyText == null || secondBodyWidget == null
               ? const Text("")
-              : Text(body2, style: Theme.of(context).textTheme.titleMedium!),
+              : Row(
+            children: [0
+              Text(
+                secondBodyText,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium!,
+              ),
+              const Spacer(),
+              secondBodyWidget,
+            ],
+          ),
+
         ],
       );
     }
-
     PageDecoration pageDecoration = PageDecoration(
       imageFlex: 2,
       titlePadding: REdgeInsets.symmetric(horizontal: 16),
@@ -68,8 +101,37 @@ class Onboarding extends StatelessWidget {
           ),
           bodyWidget: buildBody(
             AppLocalizations.of(context)!.chooseThemeAndLanguage,
-            body1: "Language",
-            body2: "Theme",
+            firstBodyText: "Language",
+            firstBodyWidget: InkWell(
+              onTap: () => _onLangButtonClick(configProvider),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: ColorsManager.blue,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                padding: REdgeInsets.all(8),
+                child: Text(
+                  configProvider.isEng ? "EN" : "AR",
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(
+                    color: Theme
+                        .of(context)
+                        .colorScheme
+                        .onPrimary,
+                  ),
+                ),
+              ),
+            ),
+            secondBodyText: "Theme",
+            secondBodyWidget: IconButton(
+              onPressed: () => _onThemeButtonClick(configProvider),
+              icon: SvgPicture.asset(
+                configProvider.isLight ? IconsManager.sun : IconsManager.moon,
+              ),
+            ),
           ),
           image: _buildImage(ImagesManager.onBoardingFirstPage),
           decoration: pageDecoration,
@@ -141,5 +203,21 @@ class Onboarding extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onThemeButtonClick(ConfigProvider configProvider) {
+    if (configProvider.isLight) {
+      configProvider.themeChanger(ThemeMode.dark);
+    } else {
+      configProvider.themeChanger(ThemeMode.light);
+    }
+  }
+
+  void _onLangButtonClick(ConfigProvider configProvider) {
+    if (configProvider.isEng) {
+      configProvider.langChanger("ar");
+    } else {
+      configProvider.langChanger("en");
+    }
   }
 }

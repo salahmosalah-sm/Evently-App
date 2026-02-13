@@ -50,6 +50,7 @@ class IconsManager
   static const String selectedProfile = "$base/Selected_Profile.svg";
 
   static const String sun = "$base/Sun.svg";
+  static const String moon = "$base/moon.svg";
 
   static const String arrowDown = "$base/arrow_Down.svg";
 

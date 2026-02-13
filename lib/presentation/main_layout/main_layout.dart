@@ -6,6 +6,7 @@ import 'package:evently_app/presentation/main_layout/tabs/map/map.dart';
 import 'package:evently_app/presentation/main_layout/tabs/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainLayout extends StatefulWidget {
@@ -32,31 +33,37 @@ class _MainLayoutState extends State<MainLayout> {
   Widget _bottomNavigationBar() {
     return BottomAppBar(
       notchMargin: 6,
-      child: BottomNavigationBar(
-        currentIndex: _bottomNavIndex,
-        onTap: _onBottomNavBrClick,
-        items: [
-          BottomNavigationBarItem(
-            label: AppLocalizations.of(context)!.home,
-            icon: SvgPicture.asset(IconsManager.unSelectedHome),
-            activeIcon: SvgPicture.asset(IconsManager.selectedHome),
-          ),
-          BottomNavigationBarItem(
-            label: AppLocalizations.of(context)!.map,
-            icon: SvgPicture.asset(IconsManager.unSelectedMap),
-            activeIcon: SvgPicture.asset(IconsManager.selectedMap),
-          ),
-          BottomNavigationBarItem(
-            label: AppLocalizations.of(context)!.favourite,
-            icon: SvgPicture.asset(IconsManager.unSelectedFavourite),
-            activeIcon: SvgPicture.asset(IconsManager.selectedFavourite),
-          ),
-          BottomNavigationBarItem(
-            label: AppLocalizations.of(context)!.profile,
-            icon: SvgPicture.asset(IconsManager.unSelectedProfile),
-            activeIcon: SvgPicture.asset(IconsManager.selectedProfile),
-          ),
-        ],
+      child: SizedBox(
+        height: kBottomNavigationBarHeight.h,
+        child: BottomNavigationBar(
+          iconSize: 20,
+          selectedFontSize: 12,
+          unselectedFontSize: 10,
+          currentIndex: _bottomNavIndex,
+          onTap: _onBottomNavBrClick,
+          items: [
+            BottomNavigationBarItem(
+              label: AppLocalizations.of(context)!.home,
+              icon: SvgPicture.asset(IconsManager.unSelectedHome),
+              activeIcon: SvgPicture.asset(IconsManager.selectedHome),
+            ),
+            BottomNavigationBarItem(
+              label: AppLocalizations.of(context)!.map,
+              icon: SvgPicture.asset(IconsManager.unSelectedMap),
+              activeIcon: SvgPicture.asset(IconsManager.selectedMap),
+            ),
+            BottomNavigationBarItem(
+              label: AppLocalizations.of(context)!.favourite,
+              icon: SvgPicture.asset(IconsManager.unSelectedFavourite),
+              activeIcon: SvgPicture.asset(IconsManager.selectedFavourite),
+            ),
+            BottomNavigationBarItem(
+              label: AppLocalizations.of(context)!.profile,
+              icon: SvgPicture.asset(IconsManager.unSelectedProfile),
+              activeIcon: SvgPicture.asset(IconsManager.selectedProfile),
+            ),
+          ],
+        ),
       ),
     );
   }

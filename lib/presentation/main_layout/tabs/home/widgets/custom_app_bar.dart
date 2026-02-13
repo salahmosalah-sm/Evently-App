@@ -1,8 +1,10 @@
+import 'package:evently_app/core/resources/assests_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 
@@ -21,14 +23,14 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  late ConfigProvider locationProvider;
+  late ConfigProvider configProvider;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    locationProvider = Provider.of<ConfigProvider>(context, listen: false);
-    locationProvider.getLocation();
+    configProvider = Provider.of<ConfigProvider>(context, listen: false);
+    configProvider.getLocation();
   }
 
   @override
@@ -49,14 +51,45 @@ class _CustomAppBarState extends State<CustomAppBar> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.welcome_back,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  SizedBox(height: 6.h),
-                  Text(
-                    UserDataModel.currentUser!.name,
-                    style: Theme.of(context).textTheme.titleLarge,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.welcome_back,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          SizedBox(height: 6.h),
+                          Text(
+                            UserDataModel.currentUser!.name,
+                            style: Theme.of(context).textTheme.titleLarge,
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: _onThemeButtonClick,
+                        icon: SvgPicture.asset(
+                          configProvider.isLight
+                              ? IconsManager.sun
+                              : IconsManager.moon,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: _onLangButtonClick,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: ColorsManager.white,
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          padding: REdgeInsets.all(8),
+                          child: Text(configProvider.isEng ? "EN" : "AR"),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 16.h),
                   Row(
@@ -70,10 +103,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           if (provider.myLocation == null) {
                             return Text(
                               AppLocalizations.of(context)!.loadingUserLocation,
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .titleSmall
+                              style: Theme.of(context).textTheme.titleSmall
                                   ?.copyWith(fontWeight: FontWeight.w500),
                             );
                           }
@@ -85,21 +115,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
                                 return Text(
-                                  AppLocalizations.of(context)!
-                                      .loadingUserLocation,
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .titleSmall
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.loadingUserLocation,
+                                  style: Theme.of(context).textTheme.titleSmall
                                       ?.copyWith(fontWeight: FontWeight.w500),
                                 );
                               }
                               return Text(
                                 snapshot.data!,
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
+                                style: Theme.of(context).textTheme.titleSmall
                                     ?.copyWith(fontWeight: FontWeight.w500),
                               );
                             },
@@ -149,4 +174,19 @@ class _CustomAppBarState extends State<CustomAppBar> {
     }
   }
 
+  void _onThemeButtonClick() {
+    if (configProvider.isLight) {
+      configProvider.themeChanger(ThemeMode.dark);
+    } else {
+      configProvider.themeChanger(ThemeMode.light);
+    }
+  }
+
+  void _onLangButtonClick() {
+    if (configProvider.isEng) {
+      configProvider.langChanger("ar");
+    } else {
+      configProvider.langChanger("en");
+    }
+  }
 }
