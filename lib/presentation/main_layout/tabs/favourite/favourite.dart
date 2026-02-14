@@ -69,12 +69,14 @@ class _FavouriteState extends State<Favourite> {
   void _getFavEvents() async {
     favEvents = await FireBaseServices.getFavEventsFromFireBase();
     filteredFavEvents = favEvents;
+    if (!mounted) return;
     setState(() {});
   }
 
   void _getFavEventsBySearchKey(String searchKey) {
     if (searchKey.trim().isEmpty) {
       filteredFavEvents = favEvents;
+      if (!mounted) return;
       setState(() {});
     } else {
       filteredFavEvents =
@@ -89,6 +91,8 @@ class _FavouriteState extends State<Favourite> {
                     ),
               )
               .toList();
+
+      if (!mounted) return;
       setState(() {});
     }
   }

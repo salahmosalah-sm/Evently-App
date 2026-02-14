@@ -67,6 +67,7 @@ class _CustomEventTitleState extends State<CustomEventTitle> {
       await FireBaseServices.removeEventFromFavorite(widget.event);
     }
 
+    if (!mounted) return;
     if (widget.onFavToggle != null) widget.onFavToggle!();
     setState(() {
 
