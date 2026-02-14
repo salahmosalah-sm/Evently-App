@@ -1,4 +1,5 @@
 import 'package:evently_app/core/extensions/date_time_extenstion.dart';
+import 'package:evently_app/core/resources/analog_utils.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/constant_manager.dart';
 import 'package:evently_app/core/routes_manager/route_manager.dart';
@@ -246,6 +247,12 @@ class _CreateEventState extends State<CreateEvent> {
 
   void _createEvent() async {
     if (!formKey.currentState!.validate()) return;
+    if (location == null) {
+      AnalogUtils.showMessageAnalog(context: context,
+          content: "Please enter event location",
+          posTitle: "Ok");
+      return;
+    }
     if (selectedDate.isBefore(DateTime.now())) {
       showDialog(
         context: context,

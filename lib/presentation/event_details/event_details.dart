@@ -53,7 +53,7 @@ class _EventDetailsState extends State<EventDetails> {
                   ),
                   IconButton(
                     onPressed: () async {
-                      await FireBaseServices.deleteEventInTheFirebase(
+                      await FireBaseServices.deleteEventEverywhere(
                         widget.event,
                       );
                       Navigator.pop(context);

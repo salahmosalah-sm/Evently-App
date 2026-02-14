@@ -4,6 +4,7 @@ import 'package:evently_app/presentation/main_layout/tabs/favourite/widgets/cust
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/routes_manager/route_manager.dart';
 import '../../../../data/firebase_services/firebase_services.dart';
 
 class Favourite extends StatefulWidget {
@@ -36,17 +37,26 @@ class _FavouriteState extends State<Favourite> {
               child: ListView.builder(
                     itemCount: filteredFavEvents.length,
                     itemBuilder:
-                        (context, index) => CustomEventCard(
-                          event: filteredFavEvents[index],
-                          favEvent: true,
-                          onFavToggle: () {
-                            setState(() {
-                              filteredFavEvents.removeWhere(
-                                (e) => e.id == filteredFavEvents[index].id,
-                              );
-                            });
+                        (context, index) =>
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RoutesManager.eventDetails,
+                                arguments: filteredFavEvents[index]);
                           },
-                          key: ValueKey(favEvents[index].id),
+                          child: CustomEventCard(
+                            event: filteredFavEvents[index],
+                            favEvent: true,
+                            onFavToggle: () {
+                              setState(() {
+                                filteredFavEvents.removeWhere(
+                                      (e) =>
+                                  e.id == filteredFavEvents[index].id,
+                                );
+                              });
+                            },
+                            key: ValueKey(favEvents[index].id),
+                          ),
                         ),
                   ),
                 ),

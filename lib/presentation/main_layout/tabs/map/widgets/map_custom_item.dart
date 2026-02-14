@@ -64,7 +64,7 @@ class _MapCustomItemState extends State<MapCustomItem> {
                 Text(
                   _getPlaceName,
                   style: Theme.of(context).textTheme.headlineSmall,
-                  maxLines: 2,
+                  maxLines: 1,
                 ),
               ],
             ),

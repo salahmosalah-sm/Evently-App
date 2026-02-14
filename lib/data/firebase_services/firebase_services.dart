@@ -13,9 +13,9 @@ class FireBaseServices {
     CollectionReference<EventDM> eventsCollection = db
         .collection("events")
         .withConverter<EventDM>(
-          fromFirestore: (snapshot, _) => EventDM.fromJson(snapshot.data()!),
-          toFirestore: (event, _) => event.toJson(),
-        );
+      fromFirestore: (snapshot, _) => EventDM.fromJson(snapshot.data()!),
+      toFirestore: (event, _) => event.toJson(),
+    );
     return eventsCollection;
   }
 
@@ -27,37 +27,43 @@ class FireBaseServices {
   }
 
   static Future<List<EventDM>> getOneTimeEventsFromFireBase(
-    CategoryDM category,
-  ) async {
+      CategoryDM category,) async {
     CollectionReference<EventDM> eventCollection = getEventsCollection();
     QuerySnapshot<EventDM> querySnapshot =
-        await eventCollection
-            .where(
-              "categoryId",
-              isEqualTo: category.id == 0 ? null : category.id,
-            )
-            .orderBy("dateTime")
-            .get();
+    await eventCollection
+        .where(
+      "categoryId",
+      isEqualTo: category.id == 0 ? null : category.id,
+    )
+        .orderBy("dateTime")
+        .get();
     List<EventDM> events = querySnapshot.docs.map((e) => e.data()).toList();
     return events;
   }
 
   static Stream<List<EventDM>> getRealTimeEventsFromFireBase(
-    CategoryDM category,
-  ) async* {
+      CategoryDM category,) async* {
     CollectionReference<EventDM> eventCollection = getEventsCollection();
     Stream<QuerySnapshot<EventDM>> snapShots =
-        eventCollection
-            .where(
-              "categoryId",
-              isEqualTo: category.id == 0 ? null : category.id,
-            )
-            .orderBy("dateTime")
-            .snapshots();
+    eventCollection
+        .where(
+      "categoryId",
+      isEqualTo: category.id == 0 ? null : category.id,
+    )
+        .orderBy("dateTime")
+        .snapshots();
     Stream<List<EventDM>> eventStream = snapShots.map(
-      (querySnapshot) =>
+          (querySnapshot) =>
           querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList(),
     );
+    eventStream = eventStream.map((events) {
+      for (var event in events) {
+        if (event.dateTime.isBefore(DateTime.now())) {
+          deleteEventEverywhere(event);
+        }
+      }
+      return events;
+    });
     yield* eventStream;
   }
 
@@ -68,12 +74,12 @@ class FireBaseServices {
     }
     CollectionReference<EventDM> eventCollection = getEventsCollection();
     QuerySnapshot<EventDM> querySnapshot =
-        await eventCollection
-            .where("id", whereIn: UserDataModel.currentUser!.favEventsList)
-            .orderBy("dateTime")
-            .get();
+    await eventCollection
+        .where("id", whereIn: UserDataModel.currentUser!.favEventsList)
+        .orderBy("dateTime")
+        .get();
     List<EventDM> events =
-        querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList();
+    querySnapshot.docs.map((docSnapshot) => docSnapshot.data()).toList();
     return events;
   }
 
@@ -82,10 +88,10 @@ class FireBaseServices {
     CollectionReference<UserDataModel> userCollection = db
         .collection("Users")
         .withConverter(
-          fromFirestore:
-              (snapshot, _) => UserDataModel.fromJson(snapshot.data()!),
-          toFirestore: (user, _) => user.toJson(),
-        );
+      fromFirestore:
+          (snapshot, _) => UserDataModel.fromJson(snapshot.data()!),
+      toFirestore: (user, _) => user.toJson(),
+    );
     return userCollection;
   }
 
@@ -154,7 +160,7 @@ class FireBaseServices {
     await addUserToFireBase(user);
   }
 
-  static Future<void> removeEventToFavorite(EventDM event) async {
+  static Future<void> removeEventFromFavorite(EventDM event) async {
     UserDataModel user = UserDataModel.currentUser!;
     user.favEventsList.remove(event.id);
     await updateUserData(user);
@@ -171,7 +177,7 @@ class FireBaseServices {
     if (googleUser == null) return;
 
     final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    await googleUser.authentication;
 
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
@@ -201,5 +207,28 @@ class FireBaseServices {
     CollectionReference<EventDM> eventCollection = getEventsCollection();
     DocumentReference<EventDM> document = eventCollection.doc(event.id);
     await document.delete();
+  }
+
+  static Future<void> deleteEventEverywhere(EventDM event) async {
+    final String eventId = event.id;
+
+    await deleteEventInTheFirebase(event);
+
+    CollectionReference<UserDataModel> usersCollection = getUserCollection();
+
+    final QuerySnapshot<UserDataModel> usersSnapshot = await usersCollection
+        .get();
+    for (var userDoc in usersSnapshot.docs) {
+      List<String> favEvents = List<String>.from(
+          userDoc.get('favEventsList') ?? []);
+
+      if (favEvents.contains(eventId)) {
+        favEvents.remove(eventId);
+
+        await userDoc.reference.update({
+          'favEventsList': favEvents,
+        });
+      }
+    }
   }
 }
