@@ -72,6 +72,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       await FirebaseAuth.instance.sendPasswordResetEmail(
         email: emailController.text,
       );
+      if (!mounted) return;
       AnalogUtils.showMessageAnalog(
         context: context,
         content: AppLocalizations.of(context)!.password_reset_sent,

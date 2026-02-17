@@ -32,6 +32,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   Widget _bottomNavigationBar() {
     return BottomAppBar(
+      clipBehavior: Clip.none,
       notchMargin: 6,
       child: SizedBox(
         height: kBottomNavigationBarHeight.h,

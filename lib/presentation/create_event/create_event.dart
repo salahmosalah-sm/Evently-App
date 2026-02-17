@@ -294,6 +294,7 @@ class _CreateEventState extends State<CreateEvent> {
         ),
       );
       await FireBaseServices.addEventToFireBase(event);
+      if (!mounted) return;
       Navigator.pop(context);
     } catch (e) {
       showDialog(
@@ -382,8 +383,11 @@ class _CreateEventState extends State<CreateEvent> {
         ),
       );
       await FireBaseServices.updateEventFormTheFirebase(event);
+
+      if (!mounted) return;
       Navigator.pop(context);
     } catch (e) {
+      if (!mounted) return;
       showDialog(
         context: context,
         builder: (_) {

@@ -13,7 +13,7 @@ class CustomLogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: REdgeInsets.only(bottom: 28, left: 16, right: 16),
+      padding: REdgeInsets.only(bottom: 32, left: 16, right: 16),
       child: ElevatedButton(
         onPressed: () {
           AnalogUtils.showMessageAnalog(
@@ -54,6 +54,7 @@ class CustomLogoutButton extends StatelessWidget {
   void _onClickLogOut(BuildContext context) async {
     AnalogUtils.loadingAnalog(context);
     await FirebaseAuth.instance.signOut();
+    if (!context.mounted) return;
     AnalogUtils.hideAnalog(context);
     UserDataModel.currentUser = null;
     Navigator.pushReplacementNamed(context, RoutesManager.signIN);

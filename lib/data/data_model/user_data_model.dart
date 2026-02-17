@@ -5,12 +5,14 @@ class UserDataModel {
   String name;
   String email;
   List<String> favEventsList;
+  String? profileImageUrl;
 
   UserDataModel({
     required this.id,
     required this.name,
     required this.email,
     required this.favEventsList,
+    this.profileImageUrl,
   });
 
   UserDataModel.fromJson(Map<String, dynamic> json)
@@ -22,6 +24,7 @@ class UserDataModel {
             (json["favEventsList"] as List<dynamic>)
                 .map((e) => e.toString())
                 .toList(),
+        profileImageUrl: json["profileImageUrl"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,5 +32,6 @@ class UserDataModel {
     "name": name,
     "email": email,
     "favEventsList": favEventsList,
+    "profileImageUrl": profileImageUrl,
   };
 }

@@ -23,7 +23,7 @@ class ImagesManager
   static const String onBoardingThirdPage = "$base/onBoarding third page.png";
   static const String onBoardingForthPage = "$base/onBoarding 4 page.png";
 
-  static const String profile = "$base/profile_image.png";
+  static const String userAvatar = "$base/User avatar.png";
 
   static const String resetPassword = "$base/reset_password.png";
 }

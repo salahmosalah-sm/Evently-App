@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app/data/data_model/category_data_model.dart';
@@ -6,6 +7,8 @@ import 'package:evently_app/data/data_model/event_data_model.dart';
 import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../cloudinary_service/cloudinary_service.dart';
 
 class FireBaseServices {
   static CollectionReference<EventDM> getEventsCollection() {
@@ -183,17 +186,26 @@ class FireBaseServices {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+    UserCredential userCredential =
+    await FirebaseAuth.instance.signInWithCredential(credential);
 
-    final UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithCredential(credential);
-    UserDataModel userDM = UserDataModel(
-      id: userCredential.user!.uid,
-      name: userCredential.user!.displayName!,
-      email: userCredential.user!.email!,
-      favEventsList: [],
-    );
-    await addUserToFireBase(userDM);
-    UserDataModel user = await getUserFromFireBase(userCredential.user!.uid);
+    String uid = userCredential.user!.uid;
+
+    var doc = await getUserCollection().doc(uid).get();
+
+    if (!doc.exists) {
+      UserDataModel newUser = UserDataModel(
+        id: uid,
+        name: userCredential.user!.displayName!,
+        email: userCredential.user!.email!,
+        favEventsList: [],
+        profileImageUrl: null,
+      );
+      await addUserToFireBase(newUser);
+    }
+
+
+    UserDataModel user = await getUserFromFireBase(uid);
     UserDataModel.currentUser = user;
   }
 
@@ -230,5 +242,14 @@ class FireBaseServices {
         });
       }
     }
+  }
+
+  static Future<void> updateProfileImage(File imageFile) async {
+    String? url = await CloudinaryService.uploadImage(imageFile);
+    if (url == null) return;
+
+    UserDataModel.currentUser?.profileImageUrl = url;
+
+    await updateUserData(UserDataModel.currentUser!);
   }
 }

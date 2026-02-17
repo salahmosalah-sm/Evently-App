@@ -159,10 +159,12 @@ class _SignUpState extends State<SignUp> {
   void _onClickCreateAccount() async {
     if (!formKey.currentState!.validate()) return;
     try {
+
       AnalogUtils.loadingAnalog(
           context, message: AppLocalizations.of(context)!.registering);
       await FireBaseServices.signUp(
           emailController.text, passwordController.text, nameController.text);
+      if (!mounted) return;
       AnalogUtils.hideAnalog(context);
       AnalogUtils.showMessageAnalog(context: context,
           content: AppLocalizations.of(context)!.user_registered,

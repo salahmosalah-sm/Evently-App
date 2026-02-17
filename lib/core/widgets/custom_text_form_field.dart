@@ -27,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       controller: textEditingController,
       maxLines: maxLines,
+      textInputAction: TextInputAction.done,
       obscureText: isSecure,
       decoration: InputDecoration(
         labelText: labelText,
