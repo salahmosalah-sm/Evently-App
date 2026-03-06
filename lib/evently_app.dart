@@ -1,6 +1,6 @@
 import 'package:evently_app/config/themes/theme_manager.dart';
 import 'package:evently_app/core/extensions/build_context_extension.dart';
-import 'package:evently_app/core/routes_manager/route_manager.dart';
+import 'package:evently_app/core/routes/route_manager.dart';
 import 'package:evently_app/presentation/main_layout/tabs/widgets/splash_screen_check_user.dart';
 import 'package:evently_app/presentation/onboarding/onboarding.dart';
 import 'package:evently_app/providers/config_provider.dart';

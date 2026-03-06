@@ -1,7 +1,7 @@
 import 'package:evently_app/core/resources/analog_utils.dart';
 import 'package:evently_app/core/resources/assests_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
-import 'package:evently_app/core/routes_manager/route_manager.dart';
+import 'package:evently_app/core/routes/route_manager.dart';
 import 'package:evently_app/data/data_model/event_data_model.dart';
 import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:evently_app/data/firebase_services/firebase_services.dart';

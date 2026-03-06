@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -29,11 +30,11 @@ class CloudinaryService {
       if (response.statusCode == 200) {
         return jsonResponse['secure_url'];
       } else {
-        print('Upload failed: $jsonResponse');
+        log('Upload failed: $jsonResponse');
         return null;
       }
     } catch (e) {
-      print('Error uploading image: $e');
+      log('Error uploading image: $e');
       return null;
     }
   }

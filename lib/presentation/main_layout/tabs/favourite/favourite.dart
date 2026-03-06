@@ -4,7 +4,7 @@ import 'package:evently_app/presentation/main_layout/tabs/favourite/widgets/cust
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/routes_manager/route_manager.dart';
+import '../../../../core/routes/route_manager.dart';
 import '../../../../data/firebase_services/firebase_services.dart';
 
 class Favourite extends StatefulWidget {

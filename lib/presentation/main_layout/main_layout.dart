@@ -1,5 +1,5 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
-import 'package:evently_app/core/routes_manager/route_manager.dart';
+import 'package:evently_app/core/routes/route_manager.dart';
 import 'package:evently_app/presentation/main_layout/tabs/favourite/favourite.dart';
 import 'package:evently_app/presentation/main_layout/tabs/home/home.dart';
 import 'package:evently_app/presentation/main_layout/tabs/map/map.dart';
@@ -23,6 +23,7 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: tabs[_bottomNavIndex],
       floatingActionButton: _floatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

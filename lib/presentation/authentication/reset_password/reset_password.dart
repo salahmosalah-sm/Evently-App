@@ -40,26 +40,28 @@ class _ResetPasswordState extends State<ResetPassword> {
         padding: REdgeInsets.all(16),
         child: Form(
           key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Image.asset(ImagesManager.resetPassword),
-              SizedBox(height: 24.h),
-              CustomTextFormField(
-                labelText: appLocal.email,
-                textEditingController: emailController,
-                validator:
-                    (input) => CustomValidator.emailValidator(
-                      emailController.text,
-                      context,
-                    ),
-              ),
-              SizedBox(height: 24.h),
-              CustomElevatedButton(
-                title: appLocal.reset_password,
-                onPress: _onPasswordResetClick,
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.asset(ImagesManager.resetPassword),
+                SizedBox(height: 24.h),
+                CustomTextFormField(
+                  labelText: appLocal.email,
+                  textEditingController: emailController,
+                  validator:
+                      (input) => CustomValidator.emailValidator(
+                        emailController.text,
+                        context,
+                      ),
+                ),
+                SizedBox(height: 24.h),
+                CustomElevatedButton(
+                  title: appLocal.reset_password,
+                  onPress: _onPasswordResetClick,
+                ),
+              ],
+            ),
           ),
         ),
       ),

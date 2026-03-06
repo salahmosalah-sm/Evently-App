@@ -1,6 +1,6 @@
 import 'package:evently_app/core/resources/analog_utils.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
-import 'package:evently_app/core/routes_manager/route_manager.dart';
+import 'package:evently_app/core/routes/route_manager.dart';
 import 'package:evently_app/data/data_model/user_data_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

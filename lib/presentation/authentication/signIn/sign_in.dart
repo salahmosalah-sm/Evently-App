@@ -2,7 +2,7 @@ import 'package:evently_app/core/resources/analog_utils.dart';
 import 'package:evently_app/core/resources/assests_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/constant_manager.dart';
-import 'package:evently_app/core/routes_manager/route_manager.dart';
+import 'package:evently_app/core/routes/route_manager.dart';
 import 'package:evently_app/core/widgets/custom_button.dart';
 import 'package:evently_app/core/widgets/custom_elevated_button.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';

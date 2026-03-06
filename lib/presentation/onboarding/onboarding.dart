@@ -1,6 +1,6 @@
 import 'package:evently_app/core/resources/assests_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
-import 'package:evently_app/core/routes_manager/route_manager.dart';
+import 'package:evently_app/core/routes/route_manager.dart';
 import 'package:evently_app/providers/config_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
